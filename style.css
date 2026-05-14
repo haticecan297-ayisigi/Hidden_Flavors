@@ -1,0 +1,110 @@
+:root {
+    --bg-main: #FAFAFA;
+    --bg-card: #FFFFFF;
+    --bg-timeline: #F4EFEA;
+
+    /*Marka ve Vurgu Renkleri*/
+    --primary-color: #B73225; /*Butonlar ve başlıklar için*/
+    --accent-gold: #C5A059;   /*Tarihsel dönemleri ayırmak veya ikonlar için*/
+    --accent-green: #556B2F;  /*vurgu rengi*/
+
+    /*Metin Renkleri*/
+    --text-dark: #2C2C2C;
+    --text-muted: #6B6B6B;  /*Tarihler, alt yazılar ve malzemelerin yanındaki ölçüler için*/
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Georgia', serif;
+}
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+/*Tarif kartları*/
+.recipe-card {
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #EAEAEA;
+}
+
+/*Kullanıcı kartın üzerine geldiğinde hafifçe yukarı kalkması*/
+.recipe-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.recipe-content {
+    padding: 20px;
+}
+
+/* Dönem etiketi*/
+.era-badge {
+    display: inline-block;
+    background-color: var(--accent-gold);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.recipe-title {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+}
+
+.recipe-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+/*Kartın alt kısmı ve favori butonu*/
+.card-footer {
+    display: flex;
+    justify-content: flex-end; /*Buton sağda*/
+    border-top: 1px solid #EEEEEE;
+    padding-top: 15px;
+}
+
+.btn-favorite {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-favorite:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
