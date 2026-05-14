@@ -20,19 +20,3 @@ const  recipes = [
     //Diğer tarifleri de aynı mantıkta ekleyeceğiz
 ];
 
-//Bu veriyi script.js dosyasında kullanabilmek için dışa aktarıyoruz
-export default recipes;
-
-searchInput.addEventListener('input', (e) => {
-    const term = e.target.value.toLowerCase(); // Küçük harfe çevirerek arama yapıyoruz
-
-    const filtered = recipes.filter(recipe => {
-        return (
-            recipe.name.toLowerCase().includes(term) || 
-            recipe.era.toLowerCase().includes(term) ||
-            recipe.ingredients.some(ing => ing.name.toLowerCase().includes(term))
-        );
-    });
-
-    displayRecipes(filtered); // Sadece filtrelenmiş olanları ekrana bas
-});
