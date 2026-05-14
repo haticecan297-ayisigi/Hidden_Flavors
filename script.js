@@ -1,33 +1,30 @@
-import recipes from "./data.js";  //İçeri aktarıyoruz
+import recipes from "./data.js";
 
-//Verilerin geldiğinde emin olmak için terminale yazdıalım
-console.log("Tarifler başarıyla yüklendi", recipes);
+const recipeContainer = document.getElementById('recipe-container'); // ID düzeltildi
+const searchInput = document.getElementById('search-input'); // Değişken tanımlandı
 
-const recipeContainer = document.getElementById('recipeList');
 function displayRecipes(recipeList) {
     recipeContainer.innerHTML = "";
-    recipeList.forEach(recipe => { // Burası forEach olmalı
+    recipeList.forEach(recipe => {
         const card = `
             <div class="recipe-card">
-                <h3>${recipe.name}</h3>
-                <p><strong>Dönem:</strong> ${recipe.era}</p>
-                <p>${recipe.history.substring(0, 100)}...</p>
-                <button onclick="viewDetails(${recipe.id})">Detayları Gör</button>
+                <div class="recipe-content">
+                    <span class="era-badge">${recipe.era}</span>
+                    <h3 class="recipe-title">${recipe.name}</h3>
+                    <p class="recipe-desc">${recipe.history.substring(0, 100)}...</p>
+                    <div class="card-footer">
+                        <button class="btn-favorite" onclick="viewDetails(${recipe.id})">Detayları Gör</button>
+                    </div>
+                </div>
             </div>
         `;
         recipeContainer.innerHTML += card;
     });
 }
 
-//Sayfa ilk açıldığında tüm tarifleri göster
-displayRecipes(recipes);
-
-//Bu veriyi script.js dosyasında kullanabilmek için dışa aktarıyorum
-export default recipes;
-
+// Arama Motoru
 searchInput.addEventListener('input', (e) => {
-    const term = e.target.value.toLowerCase(); // Küçük harfe çevirerek arama yapıyoruz
-
+    const term = e.target.value.toLowerCase();
     const filtered = recipes.filter(recipe => {
         return (
             recipe.name.toLowerCase().includes(term) || 
@@ -35,6 +32,8 @@ searchInput.addEventListener('input', (e) => {
             recipe.ingredients.some(ing => ing.name.toLowerCase().includes(term))
         );
     });
-
-    displayRecipes(filtered); // Sadece filtrelenmiş olanları ekrana bas
+    displayRecipes(filtered);
 });
+
+// Sayfa ilk açıldığında göster
+displayRecipes(recipes);
