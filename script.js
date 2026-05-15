@@ -2,6 +2,16 @@ import recipes from './data.js';
 
 const recipeContainer = document.getElementById('recipe-container'); // ID düzeltildi
 const searchInput = document.getElementById('search-input'); // Değişken tanımlandı
+const mainHeader = document.querySelector('header'); // Arama çubuğunun olduğu üst kısmı seçiyoruz
+
+// Detay sayfası için yeni bir alan oluşturup <main> etiketinin içine ekliyoruz
+let detailContainer = document.getElementById('recipe-detail-view');
+if (!detailContainer) {
+    detailContainer = document.createElement('section');
+    detailContainer.id = 'recipe-detail-view';
+    detailContainer.style.display = 'none'; // Başlangıçta gizli
+    document.querySelector('main').appendChild(detailContainer);
+}
 
 function displayRecipes(recipeList) {
     recipeContainer.innerHTML = "";
@@ -38,16 +48,15 @@ searchInput.addEventListener('input', (e) => {
 // Sayfa ilk açıldığında göster
 displayRecipes(recipes);
 
-//Detayları Gör (Modal) Fonksiyonu
-// (Modül yapısı kullandığımız için window objesine ekliyoruz ki HTML'deki onclick erişebilsin)
+//Detayları Gör Fonksiyonu
 window.viewDetails = function(id) {
     // Tıklanan tarifi ID'sine göre bul
     const recipe = recipes.find(r => r.id === id);
     if (!recipe) return;
 
-    // Eğer sayfada zaten bir modal varsa önce onu kaldıralım
-    const existingModal = document.querySelector('.modal-overlay');
-    if (existingModal) existingModal.remove();
+    // Ana listeyi ve üst menüyü gizle
+    recipeContainer.style.display = 'none';
+    mainHeader.style.display = 'none';
 
     // Malzemeler listesini HTML'e çevir
     const ingredientsHtml = recipe.ingredients.map(ing => 
@@ -56,41 +65,48 @@ window.viewDetails = function(id) {
 
     // Yapılış adımlarını HTML'e çevir
     const instructionsHtml = recipe.instructions.map((step, index) => 
-        `<li><strong>Adım ${index + 1}:</strong> ${step}</li>`
+        `<li><strong>Step ${index + 1}:</strong> ${step}</li>`
     ).join('');
 
-    // Modal (Açılır Pencere) HTML'ini oluştur
-    const modalHtml = `
-        <div class="modal-overlay" id="recipe-modal" onclick="closeModal(event)">
-            <div class="modal-content">
-                <span class="close-btn" onclick="closeModal(event)">&times;</span>
-                <div class="modal-header">
-                    <h2>${recipe.name}</h2>
+    // Detay sayfası HTML'ini oluştur
+    detailContainer.innerHTML = `
+        <div class="detail-page">
+            <button class="back-btn" onclick="goBack()">&#8592; Ana Sayfaya Dön</button>
+            
+            <div class="detail-header">
+                <div class="detail-title-box">
                     <span class="era-badge">${recipe.era}</span>
+                    <span class="era-badge" style="background-color: var(--accent-green);">${recipe.category}</span>
+                    <h1>${recipe.name}</h1>
+                    <p class="history-text">"${recipe.history}"</p>
                 </div>
-                <div class="modal-body">
-                    <div class="ingredients-section">
-                        <h3>Malzemeler</h3>
-                        <ul>${ingredientsHtml}</ul>
-                    </div>
-                    <div class="instructions-section">
-                        <h3>Yapılışı</h3>
-                        <ul>${instructionsHtml}</ul>
-                    </div>
+            </div>
+
+            <div class="detail-body">
+                <div class="detail-ingredients">
+                    <h2>Ingredients</h2>
+                    <ul>${ingredientsHtml}</ul>
+                </div>
+                <div class="detail-instructions">
+                    <h2>Instructions</h2>
+                    <ul>${instructionsHtml}</ul>
                 </div>
             </div>
         </div>
     `;
 
-    // Modalı body'nin sonuna ekle
-    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    // Detay sayfasını görünür yap ve ekranın en üstüne kaydır
+    detailContainer.style.display = 'block';
+    window.scrollTo(0, 0);
 };
 
-//Modalı Kapatma Fonksiyonu
-window.closeModal = function(event) {
-    // Çarpı ikonuna veya modal dışındaki karanlık alana tıklandıysa kapat
-    if (event.target.classList.contains('close-btn') || event.target.classList.contains('modal-overlay')) {
-        const modal = document.querySelector('.modal-overlay');
-        if (modal) modal.remove();
-    }
+//GERİ DÖNME FONKSİYONU
+window.goBack = function() {
+    // Detay sayfasını gizle ve temizle
+    detailContainer.style.display = 'none';
+    detailContainer.innerHTML = ''; 
+
+    // Ana listeyi ve üst menüyü tekrar görünür yap
+    recipeContainer.style.display = 'grid'; 
+    mainHeader.style.display = 'flex'; 
 };
