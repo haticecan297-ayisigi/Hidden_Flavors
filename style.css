@@ -22,7 +22,7 @@
 
 body {
     background-color: var(--bg-main);
-    color: var(--text-color);
+    color: var(--text-dark);   /* var(--text-color) yerine var(--text-dark) yapıldı */
     font-family: 'Georgia', serif;
 }
 

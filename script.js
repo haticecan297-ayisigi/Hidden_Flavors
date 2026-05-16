@@ -3,6 +3,7 @@ import recipes from './data.js';
 const recipeContainer = document.getElementById('recipe-container'); // ID düzeltildi
 const searchInput = document.getElementById('search-input'); // Değişken tanımlandı
 const mainHeader = document.querySelector('header'); // Arama çubuğunun olduğu üst kısmı seçiyoruz
+const eraFilter = document.getElementById('era-filter'); // Filtre elementi seçildi
 
 // Detay sayfası için yeni bir alan oluşturup <main> etiketinin içine ekliyoruz
 let detailContainer = document.getElementById('recipe-detail-view');
@@ -13,11 +14,22 @@ if (!detailContainer) {
     document.querySelector('main').appendChild(detailContainer);
 }
 
+// Global filtreleme durumları
+let currentSearchTerm = '';
+let currentEra = 'all';
+
 function displayRecipes(recipeList) {
     recipeContainer.innerHTML = "";
+
+    if (recipeList.length === 0) {
+        recipeContainer.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">No recipes found matching your criteria.</p>`;
+        return;
+    }
+
     recipeList.forEach(recipe => {
         const card = `
             <div class="recipe-card">
+                <img src="${recipe.image}" alt="${recipe.name}" class="recipe-img">
                 <div class="recipe-content">
                     <span class="era-badge">${recipe.era}</span>
                     <h3 class="recipe-title">${recipe.name}</h3>
@@ -32,17 +44,32 @@ function displayRecipes(recipeList) {
     });
 }
 
-// Arama Motoru
-searchInput.addEventListener('input', (e) => {
-    const term = e.target.value.toLowerCase();
+// Ortak filtreleme fonksiyonu (Hem arama hem dönem filtresi birlikte çalışır)
+function filterRecipes() {
     const filtered = recipes.filter(recipe => {
-        return (
-            recipe.name.toLowerCase().includes(term) || 
-            recipe.era.toLowerCase().includes(term) ||
-            recipe.ingredients.some(ing => ing.name.toLowerCase().includes(term))
+        const matchesSearch = (
+            recipe.name.toLowerCase().includes(currentSearchTerm) || 
+            recipe.era.toLowerCase().includes(currentSearchTerm) ||
+            recipe.ingredients.some(ing => ing.name.toLowerCase().includes(currentSearchTerm))
         );
+        
+        const matchesEra = currentEra === 'all' || recipe.era === currentEra;
+        
+        return matchesSearch && matchesEra;
     });
     displayRecipes(filtered);
+}
+
+// Arama Input Event Listener
+searchInput.addEventListener('input', (e) => {
+    currentSearchTerm = e.target.value.toLowerCase();
+    filterRecipes();
+});
+
+// Dönem Filtresi Event Listener
+eraFilter.addEventListener('change', (e) => {
+    currentEra = e.target.value;
+    filterRecipes();
 });
 
 // Sayfa ilk açıldığında göster
