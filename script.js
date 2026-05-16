@@ -90,6 +90,18 @@ window.viewDetails = function(id) {
         `<li><strong>Step ${index + 1}:</strong> ${step}</li>`
     ).join('');
 
+    //Zaman Çizelgesini HTML'e çevir
+    const timelineHtml = recipe.timeline && recipe.timeline.length > 0 
+        ? recipe.timeline.map(item => `
+            <div class="timeline-item">
+                <div class="timeline-year">${item.year}</div>
+                <div class="timeline-content">${item.event}</div>
+            </div>
+          `).join('')
+        : `<p style="color: var(--text-muted); font-style: italic;">No timeline data available for this era.</p>`;
+
+
+
     // Detay sayfası HTML'ini oluştur (Porsiyon seçici alan eklendi)
     detailContainer.innerHTML = `
         <div class="detail-page">
@@ -119,6 +131,13 @@ window.viewDetails = function(id) {
                 <div class="detail-instructions">
                     <h2>Instructions</h2>
                     <ul>${instructionsHtml}</ul>
+                </div>
+            </div>
+
+            <div class="detail-timeline-section" style="margin-top: 50px;">
+                <h2 class="timeline-section-title">Historical Timeline</h2>
+                <div class="timeline-container">
+                    ${timelineHtml}
                 </div>
             </div>
         </div>
