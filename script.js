@@ -2,6 +2,7 @@ import recipes from './data.js';
 
 const recipeContainer = document.getElementById('recipe-container'); // ID düzeltildi
 const searchInput = document.getElementById('search-input'); // Değişken tanımlandı
+const eraFilter = document.getElementById('era-filter');
 const mainHeader = document.querySelector('header'); // Arama çubuğunun olduğu üst kısmı seçiyoruz
 
 // Detay sayfası için yeni bir alan oluşturup <main> etiketinin içine ekliyoruz
@@ -32,20 +33,37 @@ function displayRecipes(recipeList) {
     });
 }
 
-// Arama Motoru
-searchInput.addEventListener('input', (e) => {
-    const term = e.target.value.toLowerCase();
-    const filtered = recipes.filter(recipe => {
-        return (
-            recipe.name.toLowerCase().includes(term) || 
-            recipe.era.toLowerCase().includes(term) ||
-            recipe.ingredients.some(ing => ing.name.toLowerCase().includes(term))
-        );
-    });
-    displayRecipes(filtered);
-});
+//Arama ve açılır menü filtreleme sistemi
+function filterRecipes() {
+    //Yazılan metni ve seçilen dönemi al
+    const searchTerm = searchInput.value.toLowerCase();
+    const selectedEra = eraFilter.value;
 
-// Sayfa ilk açıldığında göster
+    //Tarifleri filtreleme
+    const filtered = recipes.filter(recipe => {
+        //Arama kutusu eşleşmesi
+        const matchesSearch = recipe.name.toLowerCase().includes(searchTerm) || 
+                              recipe.ingredients.some(ing => ing.name.toLowerCase().includes(searchTerm));
+        
+        //Dönem eşleşmesi
+        const matchesEra = selectedEra === 'all' || recipe.era.includes(selectedEra);
+
+        //Her iki şartı da sağlayanları ekranda bırakma
+        return matchesSearch && matchesEra;
+    });
+
+    //Filtrelenmiş listeyi ekrana bas
+    displayRecipes(filtered);
+}
+
+//Event Listeners
+//Kullanıcı arama kutusuna bir şey yazdığında filtrelemeyi tetikle
+searchInput.addEventListener('input', filterRecipes);
+
+//Kullanıcı açılır menüden yeni bir dönem seçtiğinde filtrelemeyi tetikle
+eraFilter.addEventListener('change', filterRecipes);
+
+//Sayfa ilk açıldığında göster
 displayRecipes(recipes);
 
 //Detayları Gör Fonksiyonu
