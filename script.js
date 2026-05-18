@@ -2,8 +2,8 @@ import recipes from './data.js';
 
 const recipeContainer = document.getElementById('recipe-container'); // ID düzeltildi
 const searchInput = document.getElementById('search-input'); // Değişken tanımlandı
+const eraFilter = document.getElementById('era-filter');   // Filtre elementi seçildi
 const mainHeader = document.querySelector('header'); // Arama çubuğunun olduğu üst kısmı seçiyoruz
-const eraFilter = document.getElementById('era-filter'); // Filtre elementi seçildi
 
 // Detay sayfası için yeni bir alan oluşturup <main> etiketinin içine ekliyoruz
 let detailContainer = document.getElementById('recipe-detail-view');
@@ -72,7 +72,10 @@ eraFilter.addEventListener('change', (e) => {
     filterRecipes();
 });
 
-// Sayfa ilk açıldığında göster
+//Kullanıcı açılır menüden yeni bir dönem seçtiğinde filtrelemeyi tetikle
+eraFilter.addEventListener('change', filterRecipes);
+
+//Sayfa ilk açıldığında göster
 displayRecipes(recipes);
 
 //Detayları Gör Fonksiyonu
