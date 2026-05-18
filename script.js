@@ -200,3 +200,87 @@ window.goBack = function() {
     recipeContainer.style.display = 'grid'; 
     mainHeader.style.display = 'flex'; 
 };
+
+// --- ÜYELİK SİMÜLASYONU VE LOCAL STORAGE MANTIĞI ---
+
+// DOM Elemanları
+const modal = document.getElementById('login-modal');
+const btnLoginTrigger = document.getElementById('btn-login-trigger');
+const closeModalBtn = document.getElementById('close-modal');
+const btnSubmitLogin = document.getElementById('btn-submit-login');
+const usernameInput = document.getElementById('username-input');
+
+const userProfileDiv = document.getElementById('user-profile');
+const userNameDisplay = document.getElementById('user-name-display');
+const btnLogout = document.getElementById('btn-logout');
+
+// 1. Sayfa yüklendiğinde kullanıcının giriş yapıp yapmadığını kontrol et
+function checkLoginStatus() {
+    const loggedInUser = localStorage.getItem('hiddenFlavorsUser');
+    
+    if (loggedInUser) {
+        // Kullanıcı giriş yapmışsa
+        btnLoginTrigger.style.display = 'none'; // Login butonunu gizle
+        userProfileDiv.style.display = 'block'; // Profil alanını göster
+        userNameDisplay.textContent = `Welcome, ${loggedInUser}!`; // İsmi yaz
+    } else {
+        // Kullanıcı giriş yapmamışsa
+        btnLoginTrigger.style.display = 'block';
+        userProfileDiv.style.display = 'none';
+    }
+}
+
+// 2. Modal (Pop-up) Açma ve Kapama İşlemleri
+btnLoginTrigger.addEventListener('click', () => {
+    modal.style.display = 'block';
+    usernameInput.focus(); // İmleci otomatik olarak inputun içine koy
+});
+
+closeModalBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+
+// Modalın dışındaki gri alana tıklayınca da kapansın
+window.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+
+// 3. Kullanıcı Girişi Yapma (Local Storage'a Kaydetme)
+btnSubmitLogin.addEventListener('click', () => {
+    const username = usernameInput.value.trim();
+    
+    if (username.length > 0) {
+        // İsmi tarayıcı hafızasına kaydet
+        localStorage.setItem('hiddenFlavorsUser', username);
+        
+        // Inputu temizle ve pop-up'ı kapat
+        usernameInput.value = '';
+        modal.style.display = 'none';
+        
+        // Arayüzü güncelle
+        checkLoginStatus();
+    } else {
+        alert("Please enter a valid name.");
+    }
+});
+
+// Input içindeyken "Enter" tuşuna basıldığında da giriş yapsın
+usernameInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        btnSubmitLogin.click();
+    }
+});
+
+// 4. Çıkış Yapma İşlemi
+btnLogout.addEventListener('click', () => {
+    // Hafızadan kullanıcıyı sil
+    localStorage.removeItem('hiddenFlavorsUser');
+    
+    // Arayüzü güncelle
+    checkLoginStatus();
+});
+
+// Sayfa ilk yüklendiğinde durumu kontrol et
+checkLoginStatus();
