@@ -353,3 +353,106 @@ header select:focus {
     line-height: 1.6;
     font-size: 1.05rem;
 }
+
+/* --- KULLANICI ALANI VE BUTONLAR (GÜNCELLENDİ) --- */
+.user-section {
+    display: flex;
+    align-items: center;
+    margin-left: 20px; /* Header öğeleriyle arasındaki mesafe */
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #9a281e; /* Biraz daha koyu kırmızı */
+}
+
+.user-greeting {
+    font-weight: bold;
+    color: var(--accent-gold);
+    margin-right: 15px;
+}
+
+.btn-text {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 0.9rem;
+}
+
+.btn-text:hover {
+    color: var(--text-dark);
+}
+
+/* --- POP-UP (MODAL) TASARIMI --- */
+.modal {
+    display: none; /* Başlangıçta gizli */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Yarı saydam siyah arka plan */
+    backdrop-filter: blur(4px); /* Arka planı hafif bulanıklaştırır */
+}
+
+.modal-content {
+    background-color: var(--bg-card);
+    margin: 10% auto;
+    padding: 40px;
+    border: 2px solid var(--accent-gold);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: var(--text-muted);
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: var(--primary-color);
+}
+
+.modal-input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.modal-input:focus {
+    border-color: var(--accent-gold);
+    outline: none;
+}

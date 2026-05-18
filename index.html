@@ -28,6 +28,15 @@
                 <option value="Modern Korean">Modern Korean Era</option>
             </select>
         </nav>
+
+        <div id="user-section" class="user-section">
+                <button id="btn-login-trigger" class="btn-primary">Log In</button>
+                <div id="user-profile" style="display: none;">
+                    <span id="user-name-display" class="user-greeting"></span>
+                    <button id="btn-logout" class="btn-text">Logout</button>
+                </div>
+        </div>
+
     </header>
 
     <main>
@@ -35,6 +44,18 @@
            
         </section>
     </main>
+
+    //Üyelik pop-up için
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-modal">&times;</span>
+            <h2 style="color: var(--primary-color); margin-bottom: 10px;">Join Hidden Flavors</h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">Create an account to save your favorite historical recipes.</p>
+            <input type="text" id="username-input" class="modal-input" placeholder="Enter your name..." required>
+            <button id="btn-submit-login" class="btn-primary" style="width: 100%;">Sign In / Register</button>
+        </div>
+    </div>
+
     <script type="module" src="script.js"></script>
     
 </body>
