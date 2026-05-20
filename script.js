@@ -80,6 +80,9 @@ displayRecipes(recipes);
 
 //Detayları Gör Fonksiyonu
 window.viewDetails = function(id) {
+    const heroSection = document.querySelector('.hero-section');
+    if (heroSection) heroSection.style.display = 'none';
+
     // Tıklanan tarifi ID'sine göre bul
     const recipe = recipes.find(r => r.id === id);
     if (!recipe) return;
@@ -192,6 +195,9 @@ window.viewDetails = function(id) {
 
 //GERİ DÖNME FONKSİYONU
 window.goBack = function() {
+    const heroSection = document.querySelector('.hero-section');
+    if (heroSection) heroSection.style.display = 'flex';
+    
     // Detay sayfasını gizle ve temizle
     detailContainer.style.display = 'none';
     detailContainer.innerHTML = ''; 

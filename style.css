@@ -20,6 +20,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: var(--bg-main);
     color: var(--text-dark);   /* var(--text-color) yerine var(--text-dark) yapıldı */
@@ -33,7 +37,7 @@ header {
     justify-content: space-between; /* Başlığı sola, filtreleri sağa yaslar */
     align-items: center;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    margin-bottom: 30px;
+    margin-bottom: 0px;
     border-bottom: 3px solid var(--accent-gold);
 }
 
@@ -455,4 +459,205 @@ header select:focus {
 .modal-input:focus {
     border-color: var(--accent-gold);
     outline: none;
+}
+
+/* --- HERO SECTION --- */
+.hero-section {
+    position: relative;
+    height: 70vh;
+    min-height: 520px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.hero-slider {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0;
+}
+
+.slide {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: #FFFFFF;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+/* Sağ ve Sol Ok Butonları */
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #FFFFFF;
+    font-size: 1.8rem;
+    padding: 12px 18px;
+    cursor: pointer;
+    z-index: 3;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(2px);
+}
+
+.slider-arrow:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.prev-arrow { left: 30px; }
+.next-arrow { right: 30px; }
+
+/* Alt Kenardaki Tarif Bilgilendirme Kartı */
+.hero-recipe-badge {
+    position: absolute;
+    bottom: 25px;
+    z-index: 3;
+    background: rgba(44, 44, 44, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--accent-gold);
+    padding: 10px 24px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #FFFFFF;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.5s ease;
+}
+
+.badge-label {
+    font-size: 0.85rem;
+    color: #CCCCCC;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#hero-recipe-name {
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    color: var(--accent-gold);
+    font-size: 1.05rem;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    padding: 6px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #FFFFFF;
+}
+
+.hero-content h2 {
+    font-size: 3.5rem;
+    color: var(--accent-gold);
+    margin-bottom: 20px;
+    font-family: 'Georgia', serif;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.hero-btn {
+    font-size: 1.1rem;
+    padding: 12px 30px;
+}
+
+/* --- FOOTER --- */
+.site-footer {
+    background-color: var(--text-dark);
+    color: #FAFAFA;
+    padding: 40px 20px 10px;
+    margin-top: 60px;
+    border-top: 4px solid var(--accent-gold);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.footer-brand h3 {
+    color: var(--accent-gold);
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.footer-brand p {
+    color: #CCCCCC;
+    line-height: 1.6;
+}
+
+.footer-links h4 {
+    color: #FFFFFF;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #CCCCCC;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: var(--accent-gold);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #444;
+    color: #888;
+    font-size: 0.9rem;
 }
