@@ -162,6 +162,8 @@ window.viewDetails = function(id) {
         : `<p style="color: var(--text-muted); font-style: italic;">No timeline data available for this era.</p>`;
 
 
+    // Check if the recipe is already favorited to set the initial button state
+    const isFavInitial = favorites.includes(recipe.id);
 
     // Detay sayfası HTML'ini oluştur (Porsiyon seçici alan eklendi)
     detailContainer.innerHTML = `
@@ -173,6 +175,13 @@ window.viewDetails = function(id) {
                     <span class="era-badge">${recipe.era}</span>
                     <span class="era-badge" style="background-color: var(--accent-green);">${recipe.category}</span>
                     <h1>${recipe.name}</h1>
+                    
+                    <div style="margin-bottom: 25px;">
+                        <button id="btn-detail-fav" class="fav-filter-btn ${isFavInitial ? 'active' : ''}" onclick="toggleFavoriteFromDetail(${recipe.id})">
+                            ${isFavInitial ? '♥ In My Favorites' : '♡ Add to Favorites'}
+                        </button>
+                    </div>
+
                     <p class="history-text">"${recipe.history}"</p>
                 </div>
             </div>
@@ -354,3 +363,42 @@ btnLogout.addEventListener('click', () => {
 // Sayfa ilk yüklendiğinde durumu kontrol et
 checkLoginStatus();
 
+// Function to handle adding/removing favorites from the recipe detail view
+window.toggleFavoriteFromDetail = function(id) {
+    // Check if the user is logged in
+    const currentUser = localStorage.getItem('hiddenFlavorsUser');
+    
+    if (!currentUser) {
+        alert("Please log in to add recipes to your favorites.");
+        const modal = document.getElementById('login-modal');
+        const usernameInput = document.getElementById('username-input');
+        modal.style.display = 'block'; 
+        usernameInput.focus();
+        return;
+    }
+
+    // Update the favorites array
+    if (favorites.includes(id)) {
+        favorites = favorites.filter(favId => favId !== id);
+    } else {
+        favorites.push(id);
+    }
+    
+    // Save to Local Storage as a simple string without using JSON
+    localStorage.setItem('hiddenFlavorsFavs', favorites.join(','));
+    
+    // Instantly update the button's appearance on the detail page
+    const btnDetailFav = document.getElementById('btn-detail-fav');
+    const isFav = favorites.includes(id);
+    
+    if (isFav) {
+        btnDetailFav.classList.add('active');
+        btnDetailFav.innerHTML = '♥ In My Favorites';
+    } else {
+        btnDetailFav.classList.remove('active');
+        btnDetailFav.innerHTML = '♡ Add to Favorites';
+    }
+
+    // Keep the main page cards synchronized in the background
+    filterRecipes();
+};
