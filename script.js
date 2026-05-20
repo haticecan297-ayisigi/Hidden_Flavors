@@ -61,29 +61,34 @@ function displayRecipes(recipeList) {
 
 // YENİ: Korumalı Favoriye Ekleme Fonksiyonu
 window.toggleFavorite = function(id, event) {
-    event.stopPropagation(); // Karta tıklanmasını engeller
+    event.stopPropagation(); 
 
-    // Bekçi: Kullanıcı giriş yapmış mı?
-    const currentUser = localStorage.getItem('hiddenFlavorsUser');
+    // YENİ: Artık hiddenFlavorsCurrentUser anahtarını kontrol ediyoruz
+    const currentUser = localStorage.getItem('hiddenFlavorsCurrentUser');
     
     if (!currentUser) {
-        alert("🔒 Please log in to add recipes to your favorites!");
+        // Kullanıcı giriş yapmamışsa doğrudan Login ekranını aç (Alert yerine daha profesyonel)
         const modal = document.getElementById('login-modal');
-        const usernameInput = document.getElementById('username-input');
-        modal.style.display = 'block'; 
-        usernameInput.focus();
+        const loginFormView = document.getElementById('login-form-view');
+        const registerFormView = document.getElementById('register-form-view');
+        const loginEmailInput = document.getElementById('login-email');
+        
+        loginFormView.style.display = 'block';
+        registerFormView.style.display = 'none';
+        modal.style.display = 'block';
+        loginEmailInput.focus();
         return;
     }
 
-    // Giriş yapmışsa favori ekle/çıkar
+    // Giriş yapmışsa favori ekle/çıkar (JSON YOOOK)
     if (favorites.includes(id)) {
         favorites = favorites.filter(favId => favId !== id);
     } else {
         favorites.push(id);
     }
     
-    localStorage.setItem('hiddenFlavorsFavs', JSON.stringify(favorites));
-    filterRecipes(); // Ekranı güncelle
+    localStorage.setItem('hiddenFlavorsFavs', favorites.join(','));
+    filterRecipes(); 
 };
 
 // Ortak filtreleme fonksiyonu (Hem arama hem dönem filtresi birlikte çalışır)
@@ -270,124 +275,223 @@ window.goBack = function() {
 
 // --- ÜYELİK SİMÜLASYONU VE LOCAL STORAGE MANTIĞI ---
 
-// DOM Elemanları
+// DOM Elemanları - Modal & Auth
 const modal = document.getElementById('login-modal');
 const btnLoginTrigger = document.getElementById('btn-login-trigger');
 const closeModalBtn = document.getElementById('close-modal');
+
+const loginFormView = document.getElementById('login-form-view');
+const registerFormView = document.getElementById('register-form-view');
+
+const linkShowRegister = document.getElementById('link-show-register');
+const linkShowLogin = document.getElementById('link-show-login');
+const linkForgotPassword = document.getElementById('link-forgot-password');
+
+const loginEmailInput = document.getElementById('login-email');
+const loginPasswordInput = document.getElementById('login-password');
 const btnSubmitLogin = document.getElementById('btn-submit-login');
-const usernameInput = document.getElementById('username-input');
+
+const registerEmailInput = document.getElementById('register-email');
+const registerPasswordInput = document.getElementById('register-password');
+const btnSubmitRegister = document.getElementById('btn-submit-register');
 
 const userProfileDiv = document.getElementById('user-profile');
 const userNameDisplay = document.getElementById('user-name-display');
 const btnLogout = document.getElementById('btn-logout');
 
-// 1. Sayfa yüklendiğinde kullanıcının giriş yapıp yapmadığını kontrol et
+// Helper: Get users string (Format: "email1|pass1,email2|pass2") - NO JSON
+function getUsers() {
+    return localStorage.getItem('hiddenFlavorsUsers') || "";
+}
+
+function saveUser(email, password) {
+    let usersStr = getUsers();
+    const newUserStr = email + "|" + password;
+    
+    if (usersStr.length === 0) {
+        usersStr = newUserStr;
+    } else {
+        usersStr = usersStr + "," + newUserStr;
+    }
+    localStorage.setItem('hiddenFlavorsUsers', usersStr);
+}
+
+function checkUserExists(email) {
+    const usersStr = getUsers();
+    if (!usersStr) return false;
+    
+    const userArray = usersStr.split(',');
+    for (let i = 0; i < userArray.length; i++) {
+        const userParts = userArray[i].split('|');
+        if (userParts[0] === email) return true;
+    }
+    return false;
+}
+
+function validateLogin(email, password) {
+    const usersStr = getUsers();
+    if (!usersStr) return false;
+    
+    const userArray = usersStr.split(',');
+    for (let i = 0; i < userArray.length; i++) {
+        const userParts = userArray[i].split('|');
+        if (userParts[0] === email && userParts[1] === password) return true;
+    }
+    return false;
+}
+
+// 1. Modal İçi Ekran Geçişleri (Login / Register / Forgot Password)
+linkShowRegister.addEventListener('click', (e) => {
+    e.preventDefault();
+    loginFormView.style.display = 'none';
+    registerFormView.style.display = 'block';
+});
+
+linkShowLogin.addEventListener('click', (e) => {
+    e.preventDefault();
+    registerFormView.style.display = 'none';
+    loginFormView.style.display = 'block';
+});
+
+linkForgotPassword.addEventListener('click', (e) => {
+    e.preventDefault();
+    // No backend, so we just simulate an email sent
+    alert("A password recovery link has been sent to your email address."); 
+});
+
+// 2. Sayfa Yüklendiğinde Durumu Kontrol Et
 function checkLoginStatus() {
-    const loggedInUser = localStorage.getItem('hiddenFlavorsUser');
+    // We now use 'hiddenFlavorsCurrentUser' instead of the old key
+    const loggedInUser = localStorage.getItem('hiddenFlavorsCurrentUser');
     
     if (loggedInUser) {
-        // Kullanıcı giriş yapmışsa
-        btnLoginTrigger.style.display = 'none'; // Login butonunu gizle
-        userProfileDiv.style.display = 'block'; // Profil alanını göster
-        userNameDisplay.textContent = `Welcome, ${loggedInUser}!`; // İsmi yaz
-        if(btnShowFavs) btnShowFavs.style.display = 'block'; // YENİ: Giriş yapınca butonu göster
+        btnLoginTrigger.style.display = 'none';
+        userProfileDiv.style.display = 'block';
+        
+        // Extract the name part before the '@' sign for a friendly greeting
+        const displayName = loggedInUser.split('@')[0];
+        userNameDisplay.textContent = `Welcome, ${displayName}!`;
+        
+        if(btnShowFavs) btnShowFavs.style.display = 'block';
     } else {
-        // Kullanıcı giriş yapmamışsa
         btnLoginTrigger.style.display = 'block';
         userProfileDiv.style.display = 'none';
-
-        // YENİ: Çıkış yapınca butonu gizle ve filtreyi sıfırla
+        
         if(btnShowFavs) {
             btnShowFavs.style.display = 'none';
             showOnlyFavs = false;
             btnShowFavs.classList.remove('active');
             btnShowFavs.innerHTML = '♡ My Favorites';
         }
-        filterRecipes(); // Ekranı herkesin göreceği hale geri getir
+        filterRecipes(); 
     }
 
 }
 
-// 2. Modal (Pop-up) Açma ve Kapama İşlemleri
+// 3. Modal Açma/Kapama İşlemleri
 btnLoginTrigger.addEventListener('click', () => {
+    loginFormView.style.display = 'block';
+    registerFormView.style.display = 'none';
     modal.style.display = 'block';
-    usernameInput.focus(); // İmleci otomatik olarak inputun içine koy
+    loginEmailInput.focus();
 });
 
 closeModalBtn.addEventListener('click', () => {
     modal.style.display = 'none';
 });
 
-// Modalın dışındaki gri alana tıklayınca da kapansın
+
 window.addEventListener('click', (event) => {
     if (event.target === modal) {
         modal.style.display = 'none';
     }
 });
 
-// 3. Kullanıcı Girişi Yapma (Local Storage'a Kaydetme)
-btnSubmitLogin.addEventListener('click', () => {
-    const username = usernameInput.value.trim();
+// 4. Kayıt Ol (Sign Up) İşlemi
+btnSubmitRegister.addEventListener('click', () => {
+    const email = registerEmailInput.value.trim();
+    const password = registerPasswordInput.value.trim();
     
-    if (username.length > 0) {
-        // İsmi tarayıcı hafızasına kaydet
-        localStorage.setItem('hiddenFlavorsUser', username);
-        
-        // Inputu temizle ve pop-up'ı kapat
-        usernameInput.value = '';
-        modal.style.display = 'none';
-        
-        // Arayüzü güncelle
-        checkLoginStatus();
-    } else {
-        alert("Please enter a valid name.");
-    }
-});
-
-// Input içindeyken "Enter" tuşuna basıldığında da giriş yapsın
-usernameInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        btnSubmitLogin.click();
-    }
-});
-
-// 4. Çıkış Yapma İşlemi
-btnLogout.addEventListener('click', () => {
-    // Hafızadan kullanıcıyı sil
-    localStorage.removeItem('hiddenFlavorsUser');
-    
-    // Arayüzü güncelle
-    checkLoginStatus();
-});
-
-// Sayfa ilk yüklendiğinde durumu kontrol et
-checkLoginStatus();
-
-// Function to handle adding/removing favorites from the recipe detail view
-window.toggleFavoriteFromDetail = function(id) {
-    // Check if the user is logged in
-    const currentUser = localStorage.getItem('hiddenFlavorsUser');
-    
-    if (!currentUser) {
-        alert("Please log in to add recipes to your favorites.");
-        const modal = document.getElementById('login-modal');
-        const usernameInput = document.getElementById('username-input');
-        modal.style.display = 'block'; 
-        usernameInput.focus();
+    if (email.length === 0 || password.length === 0) {
+        alert("Please fill in both email and password fields.");
         return;
     }
 
-    // Update the favorites array
+    if (checkUserExists(email)) {
+        alert("An account with this email already exists. Please log in.");
+        return;
+    }
+
+    // Save the new user to Local Storage
+    saveUser(email, password);
+    
+    // Automatically log them in
+    localStorage.setItem('hiddenFlavorsCurrentUser', email);
+    
+    // Clear inputs and close modal
+    registerEmailInput.value = '';
+    registerPasswordInput.value = '';
+    modal.style.display = 'none';
+    checkLoginStatus();
+});
+
+// 5. Giriş Yap (Log In) İşlemi
+btnSubmitLogin.addEventListener('click', () => {
+    const email = loginEmailInput.value.trim();
+    const password = loginPasswordInput.value.trim();
+    
+    if (email.length === 0 || password.length === 0) {
+        alert("Please fill in both email and password fields.");
+        return;
+    }
+
+    if (validateLogin(email, password)) {
+        // Correct credentials, log them in
+        localStorage.setItem('hiddenFlavorsCurrentUser', email);
+        
+        // Clear inputs and close modal
+        loginEmailInput.value = '';
+        loginPasswordInput.value = '';
+        modal.style.display = 'none';
+       
+        checkLoginStatus();
+    } else {
+        alert("Invalid email or password. Please try again.");
+    }
+});
+
+// 6. Çıkış Yap (Logout) İşlemi
+btnLogout.addEventListener('click', () => {
+    localStorage.removeItem('hiddenFlavorsCurrentUser');
+    checkLoginStatus();
+});
+
+// Initialize
+checkLoginStatus();
+
+// 7. Favorileme Bekçilerini Güncelle (Detail Page)
+window.toggleFavoriteFromDetail = function(id) {
+    const currentUser = localStorage.getItem('hiddenFlavorsCurrentUser'); // NEW KEY
+    
+    if (!currentUser) {
+        loginFormView.style.display = 'block';
+        registerFormView.style.display = 'none';
+        modal.style.display = 'block';
+        loginEmailInput.focus();
+        return;
+    }
+
+    
     if (favorites.includes(id)) {
         favorites = favorites.filter(favId => favId !== id);
     } else {
         favorites.push(id);
     }
     
-    // Save to Local Storage as a simple string without using JSON
+    
     localStorage.setItem('hiddenFlavorsFavs', favorites.join(','));
     
-    // Instantly update the button's appearance on the detail page
+    
     const btnDetailFav = document.getElementById('btn-detail-fav');
     const isFav = favorites.includes(id);
     
@@ -399,6 +503,6 @@ window.toggleFavoriteFromDetail = function(id) {
         btnDetailFav.innerHTML = '♡ Add to Favorites';
     }
 
-    // Keep the main page cards synchronized in the background
+    
     filterRecipes();
 };

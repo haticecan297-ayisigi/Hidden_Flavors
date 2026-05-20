@@ -46,14 +46,34 @@
         </section>
     </main>
 
-    
-    <div id="login-modal" class="modal">
+
+   <div id="login-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" id="close-modal">&times;</span>
-            <h2 style="color: var(--primary-color); margin-bottom: 10px;">Join Hidden Flavors</h2>
-            <p style="color: var(--text-muted); margin-bottom: 20px;">Create an account to save your favorite historical recipes.</p>
-            <input type="text" id="username-input" class="modal-input" placeholder="Enter your name..." required>
-            <button id="btn-submit-login" class="btn-primary" style="width: 100%;">Sign In / Register</button>
+            
+            <div id="login-form-view">
+                <h2 style="color: var(--primary-color); margin-bottom: 10px;">Welcome Back</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Log in to access your favorite recipes.</p>
+                <input type="email" id="login-email" class="modal-input" placeholder="Email address" required>
+                <input type="password" id="login-password" class="modal-input" placeholder="Password" required>
+                <button id="btn-submit-login" class="btn-primary" style="width: 100%;">Log In</button>
+                <div style="margin-top: 15px; font-size: 0.9rem;">
+                    <a href="#" id="link-forgot-password" style="color: var(--text-muted); text-decoration: underline; margin-bottom: 10px; display: inline-block;">Forgot Password?</a>
+                    <p>Don't have an account? <a href="#" id="link-show-register" style="color: var(--primary-color); font-weight: bold; text-decoration: none;">Sign Up</a></p>
+                </div>
+            </div>
+
+            <div id="register-form-view" style="display: none;">
+                <h2 style="color: var(--primary-color); margin-bottom: 10px;">Create an Account</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Join us to save your culinary history.</p>
+                <input type="email" id="register-email" class="modal-input" placeholder="Email address" required>
+                <input type="password" id="register-password" class="modal-input" placeholder="Create a password" required>
+                <button id="btn-submit-register" class="btn-primary" style="width: 100%;">Sign Up</button>
+                <div style="margin-top: 15px; font-size: 0.9rem;">
+                    <p>Already have an account? <a href="#" id="link-show-login" style="color: var(--primary-color); font-weight: bold; text-decoration: none;">Log In</a></p>
+                </div>
+            </div>
+
         </div>
     </div>
 
