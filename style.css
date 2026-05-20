@@ -166,7 +166,7 @@ header select:focus {
     padding-top: 15px;
 }
 
-.btn-favorite {
+.btn-view {
     background-color: transparent;
     color: var(--primary-color);
     border: 2px solid var(--primary-color);
@@ -177,7 +177,7 @@ header select:focus {
     transition: all 0.3s ease;
 }
 
-.btn-favorite:hover {
+.btn-view:hover {
     background-color: var(--primary-color);
     color: #fff;
 }
@@ -455,4 +455,69 @@ header select:focus {
 .modal-input:focus {
     border-color: var(--accent-gold);
     outline: none;
+}
+
+/* --- FAVORİ FİLTRE BUTONU --- */
+.fav-filter-btn {
+    padding: 10px 15px;
+    border: 1px solid #D1D1D1;
+    border-radius: 8px;
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    font-family: inherit;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.fav-filter-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* --- KART ÜZERİNDEKİ KALP SİSTEMİ --- */
+.recipe-card {
+    position: relative; /* Kalbi sağ üste sabitlemek için gerekli */
+}
+
+.heart-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease;
+    z-index: 2;
+}
+
+.heart-btn:hover {
+    transform: scale(1.1);
+}
+
+.heart-btn span {
+    display: inline-block;
+    transition: color 0.2s ease;
+    font-family: Arial, sans-serif;
+}
+
+/* Siyah çerçeveli boş kalp */
+.heart-outline {
+    color: #333;
+    font-weight: normal;
+}
+
+/* Kırmızı dolu kalp */
+.heart-solid {
+    color: var(--primary-color);
 }

@@ -4,6 +4,7 @@ const recipeContainer = document.getElementById('recipe-container'); // ID düze
 const searchInput = document.getElementById('search-input'); // Değişken tanımlandı
 const eraFilter = document.getElementById('era-filter');   // Filtre elementi seçildi
 const mainHeader = document.querySelector('header'); // Arama çubuğunun olduğu üst kısmı seçiyoruz
+const btnShowFavs = document.getElementById('btn-show-favs'); // YENİ: Favori Butonu
 
 // Detay sayfası için yeni bir alan oluşturup <main> etiketinin içine ekliyoruz
 let detailContainer = document.getElementById('recipe-detail-view');
@@ -14,9 +15,11 @@ if (!detailContainer) {
     document.querySelector('main').appendChild(detailContainer);
 }
 
-// Global filtreleme durumları
+// YENİ: Global filtreleme durumları ve Local Storage'dan favorileri çekme
 let currentSearchTerm = '';
 let currentEra = 'all';
+let showOnlyFavs = false; 
+let favorites = JSON.parse(localStorage.getItem('hiddenFlavorsFavs')) || [];
 
 function displayRecipes(recipeList) {
     recipeContainer.innerHTML = "";
@@ -27,15 +30,27 @@ function displayRecipes(recipeList) {
     }
 
     recipeList.forEach(recipe => {
+
+        // YENİ: Kalp ikonunu belirleme (Dolu mu Boş mu?)
+        const isFav = favorites.includes(recipe.id);
+        const heartHtml = isFav 
+            ? '<span class="heart-solid">♥</span>' 
+            : '<span class="heart-outline">♡</span>';
+
         const card = `
             <div class="recipe-card">
+                
+                <button class="heart-btn" onclick="toggleFavorite(${recipe.id}, event)">
+                    ${heartHtml}
+                </button>
+
                 <img src="${recipe.image}" alt="${recipe.name}" class="recipe-img">
                 <div class="recipe-content">
                     <span class="era-badge">${recipe.era}</span>
                     <h3 class="recipe-title">${recipe.name}</h3>
                     <p class="recipe-desc">${recipe.history.substring(0, 100)}...</p>
                     <div class="card-footer">
-                        <button class="btn-favorite" onclick="viewDetails(${recipe.id})">View Details</button>
+                        <button class="btn-view" onclick="viewDetails(${recipe.id})">View Details</button>
                     </div>
                 </div>
             </div>
@@ -43,6 +58,33 @@ function displayRecipes(recipeList) {
         recipeContainer.innerHTML += card;
     });
 }
+
+// YENİ: Korumalı Favoriye Ekleme Fonksiyonu
+window.toggleFavorite = function(id, event) {
+    event.stopPropagation(); // Karta tıklanmasını engeller
+
+    // Bekçi: Kullanıcı giriş yapmış mı?
+    const currentUser = localStorage.getItem('hiddenFlavorsUser');
+    
+    if (!currentUser) {
+        alert("🔒 Please log in to add recipes to your favorites!");
+        const modal = document.getElementById('login-modal');
+        const usernameInput = document.getElementById('username-input');
+        modal.style.display = 'block'; 
+        usernameInput.focus();
+        return;
+    }
+
+    // Giriş yapmışsa favori ekle/çıkar
+    if (favorites.includes(id)) {
+        favorites = favorites.filter(favId => favId !== id);
+    } else {
+        favorites.push(id);
+    }
+    
+    localStorage.setItem('hiddenFlavorsFavs', JSON.stringify(favorites));
+    filterRecipes(); // Ekranı güncelle
+};
 
 // Ortak filtreleme fonksiyonu (Hem arama hem dönem filtresi birlikte çalışır)
 function filterRecipes() {
@@ -54,8 +96,9 @@ function filterRecipes() {
         );
         
         const matchesEra = currentEra === 'all' || recipe.era === currentEra;
+        const matchesFav = !showOnlyFavs || favorites.includes(recipe.id); // YENİ: Favori Filtresi
         
-        return matchesSearch && matchesEra;
+        return matchesSearch && matchesEra && matchesFav;
     });
     displayRecipes(filtered);
 }
@@ -72,8 +115,23 @@ eraFilter.addEventListener('change', (e) => {
     filterRecipes();
 });
 
+// YENİ: Favorileri Göster Butonu
+if(btnShowFavs) {
+    btnShowFavs.addEventListener('click', () => {
+        showOnlyFavs = !showOnlyFavs;
+        if (showOnlyFavs) {
+            btnShowFavs.classList.add('active');
+            btnShowFavs.innerHTML = '♥ Show All';
+        } else {
+            btnShowFavs.classList.remove('active');
+            btnShowFavs.innerHTML = '♡ My Favorites';
+        }
+        filterRecipes();
+    });
+}
+
 //Kullanıcı açılır menüden yeni bir dönem seçtiğinde filtrelemeyi tetikle
-eraFilter.addEventListener('change', filterRecipes);
+//eraFilter.addEventListener('change', filterRecipes);
 
 //Sayfa ilk açıldığında göster
 displayRecipes(recipes);
@@ -223,11 +281,22 @@ function checkLoginStatus() {
         btnLoginTrigger.style.display = 'none'; // Login butonunu gizle
         userProfileDiv.style.display = 'block'; // Profil alanını göster
         userNameDisplay.textContent = `Welcome, ${loggedInUser}!`; // İsmi yaz
+        if(btnShowFavs) btnShowFavs.style.display = 'block'; // YENİ: Giriş yapınca butonu göster
     } else {
         // Kullanıcı giriş yapmamışsa
         btnLoginTrigger.style.display = 'block';
         userProfileDiv.style.display = 'none';
+
+        // YENİ: Çıkış yapınca butonu gizle ve filtreyi sıfırla
+        if(btnShowFavs) {
+            btnShowFavs.style.display = 'none';
+            showOnlyFavs = false;
+            btnShowFavs.classList.remove('active');
+            btnShowFavs.innerHTML = '♡ My Favorites';
+        }
+        filterRecipes(); // Ekranı herkesin göreceği hale geri getir
     }
+
 }
 
 // 2. Modal (Pop-up) Açma ve Kapama İşlemleri
@@ -284,3 +353,4 @@ btnLogout.addEventListener('click', () => {
 
 // Sayfa ilk yüklendiğinde durumu kontrol et
 checkLoginStatus();
+
