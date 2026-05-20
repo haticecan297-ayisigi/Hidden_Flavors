@@ -19,7 +19,9 @@ if (!detailContainer) {
 let currentSearchTerm = '';
 let currentEra = 'all';
 let showOnlyFavs = false; 
-let favorites = JSON.parse(localStorage.getItem('hiddenFlavorsFavs')) || [];
+let favsFromStorage = localStorage.getItem('hiddenFlavorsFavs');
+// Eğer veri varsa virgüllerden bölüp sayıya çeviriyoruz, yoksa boş dizi açıyoruz
+let favorites = favsFromStorage ? favsFromStorage.split(',').map(Number) : [];
 
 function displayRecipes(recipeList) {
     recipeContainer.innerHTML = "";
@@ -279,6 +281,93 @@ window.goBack = function() {
     mainHeader.style.display = 'flex'; 
 };
 
+// --- HERO SLIDER ARCHITECTURE ---
+
+const featuredRecipeIds = [1, 2, 23, 37]; 
+const sliderRecipes = recipes.filter(r => featuredRecipeIds.includes(r.id));
+
+let sliderIndex = 0;
+let sliderTimer;
+
+function initHeroSlider() {
+    const sliderContainer = document.getElementById('hero-slider');
+    if (!sliderContainer || sliderRecipes.length === 0) return;
+
+    sliderContainer.innerHTML = sliderRecipes.map((recipe, index) => `
+        <div class="slide ${index === 0 ? 'active' : ''}" style="background-image: url('${recipe.image}');"></div>
+    `).join('');
+
+    const dotsContainer = document.getElementById('slider-dots');
+    if (dotsContainer) {
+        dotsContainer.innerHTML = sliderRecipes.map((_, index) => `
+            <div class="dot ${index === 0 ? 'active' : ''}" data-index="${index}"></div>
+        `).join('');
+
+        // Noktalara tıklama özelliği ekleme
+        document.querySelectorAll('.dot').forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                const index = parseInt(e.target.getAttribute('data-index'));
+                goToSlide(index);
+            });
+        });
+    }
+
+    updateSlider();
+
+    document.getElementById('hero-next-btn').addEventListener('click', () => {
+        handleManualNavigation(1);
+    });
+    
+    document.getElementById('hero-prev-btn').addEventListener('click', () => {
+        handleManualNavigation(-1);
+    });
+
+    startAutoplay();
+}
+
+function updateSlider() {
+    const slides = document.querySelectorAll('.slide');
+    slides.forEach((slide, idx) => {
+        if (idx === sliderIndex) slide.classList.add('active');
+        else slide.classList.remove('active');
+    });
+
+    const dots = document.querySelectorAll('.dot');
+    dots.forEach((dot, idx) => {
+        if (idx === sliderIndex) dot.classList.add('active');
+        else dot.classList.remove('active');
+    });
+
+    const activeRecipe = sliderRecipes[sliderIndex];
+    document.getElementById('hero-recipe-name').textContent = activeRecipe.name;
+    
+    const viewBtn = document.getElementById('hero-view-recipe-btn');
+    viewBtn.onclick = () => {
+        window.viewDetails(activeRecipe.id);
+    };
+}
+
+function goToSlide(index) {
+    sliderIndex = index;
+    updateSlider();
+    clearInterval(sliderTimer); // Otomatik kaymayı sıfırla ki kullanıcı izlerken hemen değişmesin
+    startAutoplay();
+}
+
+function handleManualNavigation(direction) {
+    sliderIndex = (sliderIndex + direction + sliderRecipes.length) % sliderRecipes.length;
+    updateSlider();
+    clearInterval(sliderTimer);
+    startAutoplay();
+}
+
+function startAutoplay() {
+    sliderTimer = setInterval(() => {
+        sliderIndex = (sliderIndex + 1) % sliderRecipes.length;
+        updateSlider();
+    }, 5000); 
+}
+
 // --- ÜYELİK SİMÜLASYONU VE LOCAL STORAGE MANTIĞI ---
 
 // DOM Elemanları - Modal & Auth
@@ -365,7 +454,7 @@ linkForgotPassword.addEventListener('click', (e) => {
     alert("A password recovery link has been sent to your email address."); 
 });
 
-// 2. Sayfa Yüklendiğinde Durumu Kontrol Et
+// Sayfa Yüklendiğinde Durumu Kontrol Et
 function checkLoginStatus() {
     // We now use 'hiddenFlavorsCurrentUser' instead of the old key
     const loggedInUser = localStorage.getItem('hiddenFlavorsCurrentUser');
@@ -394,7 +483,7 @@ function checkLoginStatus() {
 
 }
 
-// 3. Modal Açma/Kapama İşlemleri
+// Modal Açma/Kapama İşlemleri
 btnLoginTrigger.addEventListener('click', () => {
     loginFormView.style.display = 'block';
     registerFormView.style.display = 'none';
@@ -413,7 +502,7 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// 4. Kayıt Ol (Sign Up) İşlemi
+// Kayıt Ol (Sign Up) İşlemi
 btnSubmitRegister.addEventListener('click', () => {
     const email = registerEmailInput.value.trim();
     const password = registerPasswordInput.value.trim();
@@ -441,7 +530,7 @@ btnSubmitRegister.addEventListener('click', () => {
     checkLoginStatus();
 });
 
-// 5. Giriş Yap (Log In) İşlemi
+// Giriş Yap (Log In) İşlemi
 btnSubmitLogin.addEventListener('click', () => {
     const email = loginEmailInput.value.trim();
     const password = loginPasswordInput.value.trim();
@@ -466,7 +555,7 @@ btnSubmitLogin.addEventListener('click', () => {
     }
 });
 
-// 6. Çıkış Yap (Logout) İşlemi
+// Çıkış Yap (Logout) İşlemi
 btnLogout.addEventListener('click', () => {
     localStorage.removeItem('hiddenFlavorsCurrentUser');
     checkLoginStatus();
@@ -474,8 +563,9 @@ btnLogout.addEventListener('click', () => {
 
 // Initialize
 checkLoginStatus();
+initHeroSlider();
 
-// 7. Favorileme Bekçilerini Güncelle (Detail Page)
+// Favorileme Bekçilerini Güncelle (Detail Page)
 window.toggleFavoriteFromDetail = function(id) {
     const currentUser = localStorage.getItem('hiddenFlavorsCurrentUser'); // NEW KEY
     

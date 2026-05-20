@@ -5,7 +5,7 @@ const recipes = [
     name: "Almond Soup (Badem Çorbası)",
     era: "Ottoman Era",
     category: "Soups",
-    image: "https://via.placeholder.com/400x250?text=Almond+Soup",
+    image: "./images/ottoman/almond-soup.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Sweet Almonds", amount: 1, unit: "Cup" },
@@ -33,7 +33,7 @@ const recipes = [
     name: "Mutancana",
     era: "Ottoman Era",
     category: "Main Courses",
-    image: "https://via.placeholder.com/400x250?text=Mutancana",
+    image: "./images/ottoman/mutancana.webp",
     basePortion: 4,
     ingredients: [
       { name: "Diced Lamb", amount: 500, unit: "Grams" },
@@ -63,7 +63,7 @@ const recipes = [
     name: "Imambayildi (Stuffed Eggplant)",
     era: "Ottoman Era",
     category: "Olive Oil Dishes",
-    image: "https://via.placeholder.com/400x250?text=Imambayildi",
+    image: "./images/ottoman/imambayildi.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Eggplants", amount: 4, unit: "Pieces" },
@@ -91,7 +91,7 @@ const recipes = [
     name: "Piruhi (Ottoman Dumplings)",
     era: "Ottoman Era",
     category: "Pastries & Breads",
-    image: "https://via.placeholder.com/400x250?text=Piruhi",
+    image: "./images/ottoman/piruhi.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Flour", amount: 3, unit: "Cups" },
@@ -230,7 +230,7 @@ const recipes = [
     name: "Isicia Omentata (Roman Burger)",
     era: "Ancient Roman Era",
     category: "Main Courses",
-    image: "https://via.placeholder.com/400x250?text=Isicia+Omentata",
+    image: "./images/ancient-roman/isicia-omentata.webp",
     basePortion: 4,
     ingredients: [
       { name: "Minced Meat", amount: 500, unit: "Grams" },
@@ -605,7 +605,7 @@ const recipes = [
     name: "Ossobuco alla Milanese",
     era: "Traditional Italian",
     category: "Main Courses",
-    image: "https://via.placeholder.com/400x250?text=Ossobuco",
+    image: "./images/italian/ossobuco-alla-milanese.webp",
     basePortion: 4,
     ingredients: [
       { name: "Veal Shanks (Cross-cut)", amount: 4, unit: "Pieces" },
@@ -1004,7 +1004,7 @@ const recipes = [
     name: "Paella Valenciana",
     era: "Traditional Spanish",
     category: "Main Courses",
-    image: "https://via.placeholder.com/400x250?text=Paella",
+    image: "./images/spanish/paella-valenciana.webp",
     basePortion: 4,
     ingredients: [
       { name: "Bomba Rice", amount: 2, unit: "Cups" },
