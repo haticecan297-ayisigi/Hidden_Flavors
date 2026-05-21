@@ -118,7 +118,7 @@ const recipes = [
     name: "Zerde (Saffron Rice Pudding)",
     era: "Ottoman Era",
     category: "Desserts",
-    image: "https://via.placeholder.com/400x250?text=Zerde",
+    image: "./images/ottoman/zerde.jpg",
     basePortion: 6,
     ingredients: [
       { name: "Baldo Rice", amount: 0.5, unit: "Cup" },
@@ -146,7 +146,7 @@ const recipes = [
     name: "Cherry Stuffed Vine Leaves",
     era: "Ottoman Era",
     category: "Mezes & Snacks",
-    image: "https://via.placeholder.com/400x250?text=Cherry+Stuffed+Leaves",
+    image: "./images/ottoman/visneli-sarma.webp",
     basePortion: 6,
     ingredients: [
       { name: "Vine Leaves", amount: 300, unit: "Grams" },
@@ -175,7 +175,7 @@ const recipes = [
     name: "Tamarind Sherbet",
     era: "Ottoman Era",
     category: "Beverages & Sherbets",
-    image: "https://via.placeholder.com/400x250?text=Tamarind+Sherbet",
+    image: "./images/ottoman/tamarind.jpg",
     basePortion: 8,
     ingredients: [
       { name: "Shelled Tamarind", amount: 200, unit: "Grams" },
@@ -204,7 +204,7 @@ const recipes = [
     name: "Puls (Ancient Roman Pottage)",
     era: "Ancient Roman Era",
     category: "Soups",
-    image: "https://via.placeholder.com/400x250?text=Puls",
+    image: "./images/ancient-roman/puls.webp",
     basePortion: 4,
     ingredients: [
       { name: "Einkorn or Spelt Wheat", amount: 1.5, unit: "Cups" },
@@ -257,7 +257,7 @@ const recipes = [
     name: "Patina de Asparagis (Asparagus Frittata)",
     era: "Ancient Roman Era",
     category: "Olive Oil Dishes & Vegetables",
-    image: "https://via.placeholder.com/400x250?text=Patina+de+Asparagis",
+    image: "./images/ancient-roman/asparagus-frittata.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Asparagus", amount: 1, unit: "Bunch" },
@@ -284,7 +284,7 @@ const recipes = [
     name: "Panis Quadratus (Pompeii Bread)",
     era: "Ancient Roman Era",
     category: "Pastries & Breads",
-    image: "https://via.placeholder.com/400x250?text=Panis+Quadratus",
+    image: "./images/ancient-roman/panis-quadratus.webp",
     basePortion: 1,
     ingredients: [
       { name: "Whole Wheat Flour", amount: 4, unit: "Cups" },
@@ -309,7 +309,7 @@ const recipes = [
     name: "Globuli (Roman Sweet Fritters)",
     era: "Ancient Roman Era",
     category: "Desserts",
-    image: "https://via.placeholder.com/400x250?text=Globuli",
+    image: "./images/ancient-roman/globuli.webp",
     basePortion: 4,
     ingredients: [
       { name: "Curd Cheese (or Ricotta)", amount: 250, unit: "Grams" },
@@ -335,7 +335,7 @@ const recipes = [
     name: "Epityrum (Olive Tapenade)",
     era: "Ancient Roman Era",
     category: "Mezes & Snacks",
-    image: "https://via.placeholder.com/400x250?text=Epityrum",
+    image: "./images/ancient-roman/epityrum.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Black or Green Olives", amount: 2, unit: "Cups" },
@@ -362,7 +362,7 @@ const recipes = [
     name: "Mulsum (Honeyed Wine)",
     era: "Ancient Roman Era",
     category: "Beverages & Sherbets",
-    image: "https://via.placeholder.com/400x250?text=Mulsum",
+    image: "./images/ancient-roman/honey.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Dry Red Wine (or Red Grape Must)", amount: 1, unit: "Liter" },
@@ -387,7 +387,7 @@ const recipes = [
     name: "Ancient Anatolian Lentil Soup",
     era: "Ancient Antiquity (Hittite)",
     category: "Soups",
-    image: "https://via.placeholder.com/400x250?text=Ancient+Lentil+Soup",
+    image: "./images/ancient-antiquity/lentil-soup.webp",
     basePortion: 4,
     ingredients: [
       { name: "Red Lentils", amount: 1.5, unit: "Cups" },
@@ -414,7 +414,7 @@ const recipes = [
     name: "Tuh'u (Mesopotamian Lamb & Beet Stew)",
     era: "Ancient Antiquity (Mesopotamian)",
     category: "Main Courses",
-    image: "https://via.placeholder.com/400x250?text=Tuhu+Stew",
+    image: "./images/ancient-antiquity/tuhu.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Diced Lamb Leg", amount: 500, unit: "Grams" },
@@ -443,7 +443,7 @@ const recipes = [
     name: "Prason (Ancient Greek Roasted Leeks)",
     era: "Ancient Antiquity (Ancient Greek)",
     category: "Olive Oil Dishes & Vegetables",
-    image: "https://via.placeholder.com/400x250?text=Prason+Leeks",
+    image: "./images/ancient-antiquity/prason.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Leeks", amount: 4, unit: "Pieces" },
@@ -469,7 +469,7 @@ const recipes = [
     name: "Ninda (Hittite Barley Bread)",
     era: "Ancient Antiquity (Hittite)",
     category: "Pastries & Breads",
-    image: "https://via.placeholder.com/400x250?text=Hittite+Ninda",
+    image: "./images/ancient-antiquity/ninda.jpg",
     basePortion: 1,
     ingredients: [
       { name: "Barley Flour", amount: 3, unit: "Cups" },
@@ -496,7 +496,7 @@ const recipes = [
     name: "Mersu (Mesopotamian Date Candy)",
     era: "Ancient Antiquity (Mesopotamian)",
     category: "Desserts",
-    image: "https://via.placeholder.com/400x250?text=Mersu",
+    image: "./images/ancient-antiquity/mersu.webp",
     basePortion: 4,
     ingredients: [
       { name: "Pitted Dates", amount: 2, unit: "Cups" },
@@ -522,7 +522,7 @@ const recipes = [
     name: "Etnos (Ancient Greek Fava Puree)",
     era: "Ancient Antiquity (Ancient Greek)",
     category: "Mezes & Snacks",
-    image: "https://via.placeholder.com/400x250?text=Etnos",
+    image: "./images/ancient-antiquity/etnos.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Yellow Split Peas (or Fava Beans)", amount: 1.5, unit: "Cups" },
@@ -549,7 +549,7 @@ const recipes = [
     name: "Kykeon (Barley & Mint Drink)",
     era: "Ancient Antiquity (Ancient Greek)",
     category: "Beverages & Sherbets",
-    image: "https://via.placeholder.com/400x250?text=Kykeon",
+    image: "./images/ancient-antiquity/kykeon.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Roasted Barley Flour", amount: 4, unit: "Tablespoons" },
@@ -575,7 +575,7 @@ const recipes = [
     name: "Minestrone (Classic Italian Vegetable Soup)",
     era: "Traditional Italian",
     category: "Soups",
-    image: "https://via.placeholder.com/400x250?text=Minestrone",
+    image: "./images/italian/minestrone.webp",
     basePortion: 6,
     ingredients: [
       { name: "Carrots, Celery, Onion (Mirepoix)", amount: 1.5, unit: "Cups" },
@@ -634,7 +634,7 @@ const recipes = [
     name: "Caponata Siciliana",
     era: "Traditional Italian",
     category: "Olive Oil Dishes & Vegetables",
-    image: "https://via.placeholder.com/400x250?text=Caponata",
+    image: "./images/italian/caponata-siciliana.jpg",
     basePortion: 6,
     ingredients: [
       { name: "Eggplants", amount: 2, unit: "Large Pieces" },
@@ -665,7 +665,7 @@ const recipes = [
     name: "Focaccia Genovese",
     era: "Traditional Italian",
     category: "Pastries & Breads",
-    image: "https://via.placeholder.com/400x250?text=Focaccia",
+    image: "./images/italian/focaccia-genovese.jpg",
     basePortion: 8,
     ingredients: [
       { name: "Bread Flour", amount: 4, unit: "Cups" },
@@ -694,7 +694,7 @@ const recipes = [
     name: "Tiramisu",
     era: "Modern Italian",
     category: "Desserts",
-    image: "https://via.placeholder.com/400x250?text=Tiramisu",
+    image: "./images/italian/tiramisu.webp",
     basePortion: 8,
     ingredients: [
       { name: "Mascarpone Cheese", amount: 500, unit: "Grams" },
@@ -724,7 +724,7 @@ const recipes = [
     name: "Bruschetta al Pomodoro",
     era: "Traditional Italian",
     category: "Mezes & Snacks",
-    image: "https://via.placeholder.com/400x250?text=Bruschetta",
+    image: "./images/italian/bruschetta-al-pomodoro.webp",
     basePortion: 4,
     ingredients: [
       { name: "Rustic Italian Bread (Ciabatta or Pagnotta)", amount: 4, unit: "Thick Slices" },
@@ -752,7 +752,7 @@ const recipes = [
     name: "Limoncello",
     era: "Traditional Italian",
     category: "Beverages & Sherbets",
-    image: "https://via.placeholder.com/400x250?text=Limoncello",
+    image: "./images/italian/limoncello.webp",
     basePortion: 1, // Yields 1 Liter
     ingredients: [
       { name: "Organic Lemons (thick-skinned, un-waxed)", amount: 10, unit: "Pieces" },

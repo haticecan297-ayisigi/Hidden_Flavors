@@ -283,7 +283,7 @@ window.goBack = function() {
 
 // --- HERO SLIDER ARCHITECTURE ---
 
-const featuredRecipeIds = [1, 2, 23, 37]; 
+const featuredRecipeIds = [1, 2, 7, 12, 22, 15, 23, 37, 27, 28]; 
 const sliderRecipes = recipes.filter(r => featuredRecipeIds.includes(r.id));
 
 let sliderIndex = 0;
