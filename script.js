@@ -21,7 +21,7 @@ let currentEra = 'all';
 let showOnlyFavs = false; 
 let favsFromStorage = localStorage.getItem('hiddenFlavorsFavs');
 // Eğer veri varsa virgüllerden bölüp sayıya çeviriyoruz, yoksa boş dizi açıyoruz
-let favorites = favsFromStorage ? favsFromStorage.split(',').map(Number) : [];
+let favorites = [];
 
 function displayRecipes(recipeList) {
     recipeContainer.innerHTML = "";
@@ -66,7 +66,7 @@ window.toggleFavorite = function(id, event) {
     event.stopPropagation(); 
 
     // YENİ: Artık hiddenFlavorsCurrentUser anahtarını kontrol ediyoruz
-    const currentUser = localStorage.getItem('hiddenFlavorsCurrentUser');
+    const currentUser = sessionStorage.getItem('hiddenFlavorsCurrentUser');
     
     if (!currentUser) {
         // Kullanıcı giriş yapmamışsa doğrudan Login ekranını aç (Alert yerine daha profesyonel)
@@ -89,7 +89,8 @@ window.toggleFavorite = function(id, event) {
         favorites.push(id);
     }
     
-    localStorage.setItem('hiddenFlavorsFavs', favorites.join(','));
+    const userFavsKey = 'hiddenFlavorsFavs_' + currentUser;
+    localStorage.setItem(userFavsKey, favorites.join(','));
     filterRecipes(); 
 };
 
@@ -456,18 +457,22 @@ linkForgotPassword.addEventListener('click', (e) => {
 
 // Sayfa Yüklendiğinde Durumu Kontrol Et
 function checkLoginStatus() {
-    // We now use 'hiddenFlavorsCurrentUser' instead of the old key
-    const loggedInUser = localStorage.getItem('hiddenFlavorsCurrentUser');
+    const loggedInUser = sessionStorage.getItem('hiddenFlavorsCurrentUser');
     
     if (loggedInUser) {
         btnLoginTrigger.style.display = 'none';
         userProfileDiv.style.display = 'block';
         
-        // Extract the name part before the '@' sign for a friendly greeting
+        // E-posta adresinin '@' işaretinden önceki kısmını alarak karşılama mesajı oluşturur
         const displayName = loggedInUser.split('@')[0];
         userNameDisplay.textContent = `Welcome, ${displayName}!`;
         
         if(btnShowFavs) btnShowFavs.style.display = 'block';
+
+        // YENİ: Giriş yapan kullanıcıya özel anahtarla favorileri yükle
+        const userFavsKey = 'hiddenFlavorsFavs_' + loggedInUser;
+        const favsFromStorage = localStorage.getItem(userFavsKey);
+        favorites = favsFromStorage ? favsFromStorage.split(',').map(Number) : [];
     } else {
         btnLoginTrigger.style.display = 'block';
         userProfileDiv.style.display = 'none';
@@ -478,9 +483,12 @@ function checkLoginStatus() {
             btnShowFavs.classList.remove('active');
             btnShowFavs.innerHTML = '♡ My Favorites';
         }
-        filterRecipes(); 
+        // Kullanıcı yoksa favori listesini sıfırla
+        favorites = [];
     }
-
+    
+    // Ekrandaki kalplerin güncel duruma göre çizilmesi için filtrelemeyi tetikle
+    filterRecipes();
 }
 
 // Modal Açma/Kapama İşlemleri
@@ -521,7 +529,7 @@ btnSubmitRegister.addEventListener('click', () => {
     saveUser(email, password);
     
     // Automatically log them in
-    localStorage.setItem('hiddenFlavorsCurrentUser', email);
+    sessionStorage.setItem('hiddenFlavorsCurrentUser', email);
     
     // Clear inputs and close modal
     registerEmailInput.value = '';
@@ -542,7 +550,7 @@ btnSubmitLogin.addEventListener('click', () => {
 
     if (validateLogin(email, password)) {
         // Correct credentials, log them in
-        localStorage.setItem('hiddenFlavorsCurrentUser', email);
+        sessionStorage.setItem('hiddenFlavorsCurrentUser', email);
         
         // Clear inputs and close modal
         loginEmailInput.value = '';
@@ -557,7 +565,7 @@ btnSubmitLogin.addEventListener('click', () => {
 
 // Çıkış Yap (Logout) İşlemi
 btnLogout.addEventListener('click', () => {
-    localStorage.removeItem('hiddenFlavorsCurrentUser');
+    sessionStorage.removeItem('hiddenFlavorsCurrentUser');
     checkLoginStatus();
 });
 
@@ -567,7 +575,7 @@ initHeroSlider();
 
 // Favorileme Bekçilerini Güncelle (Detail Page)
 window.toggleFavoriteFromDetail = function(id) {
-    const currentUser = localStorage.getItem('hiddenFlavorsCurrentUser'); // NEW KEY
+    const currentUser = sessionStorage.getItem('hiddenFlavorsCurrentUser'); // NEW KEY
     
     if (!currentUser) {
         loginFormView.style.display = 'block';
@@ -585,7 +593,8 @@ window.toggleFavoriteFromDetail = function(id) {
     }
     
     
-    localStorage.setItem('hiddenFlavorsFavs', favorites.join(','));
+    const userFavsKey = 'hiddenFlavorsFavs_' + currentUser;
+    localStorage.setItem(userFavsKey, favorites.join(','));
     
     
     const btnDetailFav = document.getElementById('btn-detail-fav');
