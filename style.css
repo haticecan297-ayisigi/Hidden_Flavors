@@ -774,3 +774,119 @@ header select:focus {
 .heart-solid {
     color: var(--primary-color);
 }
+
+/* --- ANA SAYFA DASHBOARD KARTLARI --- */
+.home-content-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.home-dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+@media (max-width: 768px) {
+    .home-dashboard-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.dashboard-card {
+    background-color: var(--bg-card);
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    border: 1px solid #EAEAEA;
+    overflow: hidden;
+    padding: 30px;
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+/* Günün Tarifi Kartı Özel Stili (Arka Plan Resimli) */
+.recipe-of-day-card {
+    background-size: cover;
+    background-position: center;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recipe-of-day-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
+
+.recipe-of-day-card .card-overlay {
+    position: absolute;
+    top:0; left:0; width:100%; height:100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0.3));
+    z-index: 1;
+}
+
+.recipe-of-day-card .card-info {
+    position: relative;
+    z-index: 2;
+    margin-top: auto;
+}
+
+.recipe-of-day-card h2 {
+    color: var(--accent-gold);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+/* Günün Menüsü Kartı Özel Stili (İç İçe Slider Düzeni) */
+.menu-of-day-card {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 20px;
+    padding: 0; /* İç padding'i özelleştireceğiz */
+}
+
+.menu-text-side {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.menu-text-side h2 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+.menu-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.menu-list li {
+    font-size: 1.1rem;
+    border-left: 3px solid var(--accent-gold);
+    padding-left: 10px;
+}
+
+.menu-list span {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.menu-image-side {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 1s ease-in-out; /* Yumuşak resim geçiş efekti */
+}

@@ -6,6 +6,7 @@ const eraFilter = document.getElementById('era-filter');   // Filtre elementi se
 const mainHeader = document.querySelector('header'); // Arama çubuğunun olduğu üst kısmı seçiyoruz
 const btnShowFavs = document.getElementById('btn-show-favs'); // YENİ: Favori Butonu
 const categoryFilter = document.getElementById('category-filter');    //Kategori filtresini seçelim
+const homeContent = document.getElementById('home-content');
 
 // Detay sayfası için yeni bir alan oluşturup <main> etiketinin içine ekliyoruz
 let detailContainer = document.getElementById('recipe-detail-view');
@@ -25,6 +26,8 @@ let favsFromStorage = localStorage.getItem('hiddenFlavorsFavs');
 // Eğer veri varsa virgüllerden bölüp sayıya çeviriyoruz, yoksa boş dizi açıyoruz
 let favorites = [];
 let currentView = 'home';   //Uygulamanın anlık hangi sayfada olduğunu tutan değişken ('home', 'all', 'favorites')
+let showOnlyMenu = false; //Günün menüsü filtresinin aktifliğini tutar
+
 recipeContainer.style.display = 'none';   //Sayfa ilk açıldığında tarif container'ını gizle (Giriş sayfasında sadece Hero ve Footer kalacak)
 // YENİ: "Start Exploring" ve "Logo" elementlerini seçip event listener bağlama
 const btnStartExploring = document.getElementById('btn-start-exploring');
@@ -32,6 +35,7 @@ const siteLogo = document.getElementById('site-logo');
 
 if (btnStartExploring) {
     btnStartExploring.addEventListener('click', () => {
+        showOnlyMenu = false; //Normal keşfe başlarken menü filtresini kapat
         currentView = 'all';
         updateViewLayout();
     });
@@ -39,6 +43,7 @@ if (btnStartExploring) {
 
 if (siteLogo) {
     siteLogo.addEventListener('click', () => {
+        showOnlyMenu = false;
         currentView = 'home';
         // Ana sayfaya dönüldüğünde filtreleri de sıfırlamak iyi bir UX sağlar
         currentEra = 'all';
@@ -143,8 +148,11 @@ function filterRecipes() {
         const matchesCategory = currentCategory === 'all' || 
             currentCategory.split(',').some(cat => recipe.category.toLowerCase().includes(cat));
         
+        //Günün Menüsü Eşleşmesi
+        const menuIds = [1, 23, 26]; // Menüdeki yemeklerin ID'leri
+        const matchesMenu = !showOnlyMenu || menuIds.includes(recipe.id);
         // Tüm şartları sağlayanlar (true dönenler) listede kalır
-        return matchesSearch && matchesEra && matchesFav && matchesCategory;
+        return matchesSearch && matchesEra && matchesFav && matchesCategory && matchesMenu;
     });
     displayRecipes(filtered);
 }
@@ -157,6 +165,10 @@ function updateViewLayout() {
     if (currentView === 'home') {
         if (heroSection) heroSection.style.display = 'flex';
         if (siteFooter) siteFooter.style.display = 'block';
+        if (recipeContainer) recipeContainer.style.display = 'none';
+        if (homeContent) homeContent.style.display = 'block'; // Girişte GÖSTER
+        if (heroSection) heroSection.style.display = 'flex';
+        if (siteFooter) siteFooter.style.display = 'block';
         recipeContainer.style.display = 'none'; // İlk sayfada tarifler gizli
         showOnlyFavs = false;
         if (btnShowFavs) {
@@ -165,6 +177,10 @@ function updateViewLayout() {
         }
     } 
     else if (currentView === 'all') {
+        if (heroSection) heroSection.style.display = 'none';
+        if (siteFooter) siteFooter.style.display = 'block';
+        if (recipeContainer) recipeContainer.style.display = 'grid';
+        if (homeContent) homeContent.style.display = 'none'; // Gizle
         if (heroSection) heroSection.style.display = 'none'; // Tüm tariflerde Hero olmasın
         if (siteFooter) siteFooter.style.display = 'block';  // Footer gözüksün
         recipeContainer.style.display = 'grid';
@@ -688,4 +704,84 @@ window.toggleFavoriteFromDetail = function(id) {
 
     
     filterRecipes();
+};
+
+// --- ANA SAYFA DİNAMİK KART SİSTEMLERİ ---
+
+function initHomeDashboard() {
+    const recipeOfJanCard = document.getElementById('card-recipe-of-the-day');
+    const menuOfJanCard = document.getElementById('card-menu-of-the-day');
+    
+    if(!recipeOfJanCard || !menuOfJanCard) return;
+
+    // 1. GÜNÜN TARİFİ: Id'si 2 olan Mutancana'yı seçiyoruz
+    const dailyRecipe = recipes.find(r => r.id === 2);
+    if (dailyRecipe) {
+        recipeOfJanCard.style.backgroundImage = `url('${dailyRecipe.image}')`;
+        recipeOfJanCard.innerHTML = `
+            <div class="card-overlay"></div>
+            <div class="card-info">
+                <span class="era-badge">Recipe of the Day</span>
+                <h2>${dailyRecipe.name}</h2>
+                <p>${dailyRecipe.history.substring(0, 120)}...</p>
+            </div>
+        `;
+        // Tıklayınca detay sayfasına yönlendir
+        recipeOfJanCard.addEventListener('click', () => {
+            window.viewDetails(dailyRecipe.id);
+        });
+    }
+
+    // 2. GÜNÜN MENÜSÜ: Çorba (id:1), Ana Yemek (id:23), Tatlı (id:26) kombinasyonu
+    const menuIds = [1, 23, 26];
+    const menuRecipes = recipes.filter(r => menuIds.includes(r.id));
+
+    if (menuRecipes.length > 0) {
+        
+        // HTML İÇERİĞİ VE YENİ BUTON DÜZENİ BURADA
+        menuOfJanCard.innerHTML = `
+            <div class="menu-text-side">
+                <div>
+                    <span class="badge-label" style="color: var(--accent-gold); font-weight:bold;">TODAY'S MENU</span>
+                    <h2 style="margin-top: 5px;">Historical Tasting</h2>
+                </div>
+                <ul class="menu-list">
+                    ${menuRecipes.map(r => `
+                        <li>
+                            <span>${r.category}</span>
+                            <strong>${r.name}</strong>
+                        </li>
+                    `).join('')}
+                </ul>
+                <button class="btn-primary" style="padding: 8px 15px; font-size:0.85rem;" onclick="exploreMenu()">Explore All</button>
+            </div>
+            <div class="menu-image-side" id="menu-slider-img"></div>
+        `;
+
+        // Menü İçi Otomatik Resim Geçiş Algoritması (Slider)
+        const menuImgSide = document.getElementById('menu-slider-img');
+        const menuImages = menuRecipes.map(r => r.image);
+        let menuImgIndex = 0;
+
+        // İlk resmi hemen yükle
+        if (menuImgSide) menuImgSide.style.backgroundImage = `url('${menuImages[0]}')`;
+
+        // Her 4 saniyede bir sıradaki resme geçiş yap
+        setInterval(() => {
+            if (menuImgSide) {
+                menuImgIndex = (menuImgIndex + 1) % menuImages.length;
+                menuImgSide.style.backgroundImage = `url('${menuImages[menuImgIndex]}')`;
+            }
+        }, 4000);
+    }
+}
+
+// Dosyanın en altında initHeroSlider() çağrısının hemen altına ekle:
+initHomeDashboard();
+
+//Sadece menüdeki tarifleri göstermek için tetiklenen global fonksiyon
+window.exploreMenu = function() {
+    showOnlyMenu = true;  // Anahtarı aç
+    currentView = 'all';  // Listeleme sayfasına geç
+    updateViewLayout();   // Arayüzü güncelle
 };
