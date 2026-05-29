@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <h1>Hidden Flavors</h1>
+        <h1 id="site-logo" style="cursor: pointer;">Hidden Flavors</h1>
         <nav>
             <button id="btn-show-favs" class="fav-filter-btn" style="display: none;">♡ My Favorites</button>
             <!-- JS için ID'ler -->
@@ -61,7 +61,7 @@
         <div class="hero-content">
           <h2>Taste the History of the World</h2>
           <p>Explore authentic recipes from the Ottoman palaces, Ancient Roman banquets, and Seljuk feasts.</p>
-          <button class="btn-primary hero-btn" onclick="document.getElementById('recipe-container').scrollIntoView()">Start Exploring</button>
+          <button class="btn-primary hero-btn" id="btn-start-exploring">Start Exploring</button>
         </div>
 
         <button class="slider-arrow prev-arrow" id="hero-prev-btn" aria-label="Previous slide">&#10094;</button>

@@ -24,6 +24,30 @@ let showOnlyFavs = false;
 let favsFromStorage = localStorage.getItem('hiddenFlavorsFavs');
 // Eğer veri varsa virgüllerden bölüp sayıya çeviriyoruz, yoksa boş dizi açıyoruz
 let favorites = [];
+let currentView = 'home';   //Uygulamanın anlık hangi sayfada olduğunu tutan değişken ('home', 'all', 'favorites')
+recipeContainer.style.display = 'none';   //Sayfa ilk açıldığında tarif container'ını gizle (Giriş sayfasında sadece Hero ve Footer kalacak)
+// YENİ: "Start Exploring" ve "Logo" elementlerini seçip event listener bağlama
+const btnStartExploring = document.getElementById('btn-start-exploring');
+const siteLogo = document.getElementById('site-logo');
+
+if (btnStartExploring) {
+    btnStartExploring.addEventListener('click', () => {
+        currentView = 'all';
+        updateViewLayout();
+    });
+}
+
+if (siteLogo) {
+    siteLogo.addEventListener('click', () => {
+        currentView = 'home';
+        // Ana sayfaya dönüldüğünde filtreleri de sıfırlamak iyi bir UX sağlar
+        currentEra = 'all';
+        currentCategory = 'all';
+        if (eraFilter) eraFilter.value = 'all';
+        if (categoryFilter) categoryFilter.value = 'all';
+        updateViewLayout();
+    });
+}
 
 function displayRecipes(recipeList) {
     recipeContainer.innerHTML = "";
@@ -125,6 +149,45 @@ function filterRecipes() {
     displayRecipes(filtered);
 }
 
+// YENİ: Sayfa görünümlerine göre DOM elemanlarının gizlenip gösterilmesi
+function updateViewLayout() {
+    const heroSection = document.querySelector('.hero-section');
+    const siteFooter = document.querySelector('.site-footer');
+    
+    if (currentView === 'home') {
+        if (heroSection) heroSection.style.display = 'flex';
+        if (siteFooter) siteFooter.style.display = 'block';
+        recipeContainer.style.display = 'none'; // İlk sayfada tarifler gizli
+        showOnlyFavs = false;
+        if (btnShowFavs) {
+            btnShowFavs.classList.remove('active');
+            btnShowFavs.innerHTML = '♡ My Favorites';
+        }
+    } 
+    else if (currentView === 'all') {
+        if (heroSection) heroSection.style.display = 'none'; // Tüm tariflerde Hero olmasın
+        if (siteFooter) siteFooter.style.display = 'block';  // Footer gözüksün
+        recipeContainer.style.display = 'grid';
+        showOnlyFavs = false;
+        if (btnShowFavs) {
+            btnShowFavs.classList.remove('active');
+            btnShowFavs.innerHTML = '♡ My Favorites';
+        }
+        filterRecipes(); // Şartlara göre tarifleri listele
+    } 
+    else if (currentView === 'favorites') {
+        if (heroSection) heroSection.style.display = 'none';
+        if (siteFooter) siteFooter.style.display = 'none';   // İstek üzerine favorilerde footer gizli
+        recipeContainer.style.display = 'grid';
+        showOnlyFavs = true;
+        if (btnShowFavs) {
+            btnShowFavs.classList.add('active');
+            btnShowFavs.innerHTML = '♥ Show All';
+        }
+        filterRecipes();
+    }
+}
+
 // Arama Input Event Listener
 searchInput.addEventListener('input', (e) => {
     currentSearchTerm = e.target.value.toLowerCase();
@@ -147,29 +210,9 @@ eraFilter.addEventListener('change', (e) => {
 // Favorileri Göster Butonu Güncellemesi
 if(btnShowFavs) {
     btnShowFavs.addEventListener('click', () => {
-        showOnlyFavs = !showOnlyFavs;
-        
-        // DOM elemanlarını seçiyoruz
-        const heroSection = document.querySelector('.hero-section');
-        const siteFooter = document.querySelector('.site-footer');
-        
-        if (showOnlyFavs) {
-            btnShowFavs.classList.add('active');
-            btnShowFavs.innerHTML = '♥ Show All';
-            
-            // Favoriler aktifken Hero ve Footer'ı gizle
-            if (heroSection) heroSection.style.display = 'none';
-            if (siteFooter) siteFooter.style.display = 'none';
-        } else {
-            btnShowFavs.classList.remove('active');
-            btnShowFavs.innerHTML = '♡ My Favorites';
-            
-            // Ana sayfaya dönüldüğünde Hero ve Footer'ı tekrar göster
-            // (CSS'te .hero-section flex olarak tanımlandığı için 'flex' yapıyoruz)
-            if (heroSection) heroSection.style.display = 'flex';
-            if (siteFooter) siteFooter.style.display = 'block';
-        }
-        filterRecipes();
+        // Eğer zaten favorilerdeyse 'all' görünümüne geç, değilse 'favorites' görünümüne geç
+        currentView = (currentView === 'favorites') ? 'all' : 'favorites';
+        updateViewLayout();
     });
 }
 
@@ -305,16 +348,15 @@ window.viewDetails = function(id) {
 
 //GERİ DÖNME FONKSİYONU
 window.goBack = function() {
-    const heroSection = document.querySelector('.hero-section');
-    if (heroSection) heroSection.style.display = 'flex';
-    
     // Detay sayfasını gizle ve temizle
     detailContainer.style.display = 'none';
     detailContainer.innerHTML = ''; 
 
-    // Ana listeyi ve üst menüyü tekrar görünür yap
-    recipeContainer.style.display = 'grid'; 
+    // Üst menüyü tekrar görünür yap
     mainHeader.style.display = 'flex'; 
+
+    // Kullanıcı detay sayfasına girmeden önce hangi sayfadaysa düzeni oraya geri yükle
+    updateViewLayout(); 
 };
 
 // --- HERO SLIDER ARCHITECTURE ---
@@ -508,28 +550,20 @@ function checkLoginStatus() {
         const userFavsKey = 'hiddenFlavorsFavs_' + loggedInUser;
         const favsFromStorage = localStorage.getItem(userFavsKey);
         favorites = favsFromStorage ? favsFromStorage.split(',').map(Number) : [];
+        // Ekrandaki kalplerin güncel duruma göre çizilmesi için filtrelemeyi tetikle
+        filterRecipes();
     } else {
+        // Kullanıcı giriş yapmamışsa veya çıkış (logout) yapmışsa
         btnLoginTrigger.style.display = 'block';
         userProfileDiv.style.display = 'none';
         
-        if(btnShowFavs) {
-            btnShowFavs.style.display = 'none';
-            showOnlyFavs = false;
-            btnShowFavs.classList.remove('active');
-            btnShowFavs.innerHTML = '♡ My Favorites';
-        }
-        // Kullanıcı yoksa favori listesini sıfırla
+        // Güvenlik ve senkronizasyon için bellekteki favori listesini sıfırla
         favorites = [];
 
-        // Çıkış yapıldığında ana sayfa düzenini eski haline getir
-        const heroSection = document.querySelector('.hero-section');
-        const siteFooter = document.querySelector('.site-footer');
-        if (heroSection) heroSection.style.display = 'flex';
-        if (siteFooter) siteFooter.style.display = 'block';
+        // GÖRÜNÜM YÖNETİMİ: Oturum yoksa görünümü ana sayfaya ('home') çek ve düzeni sıfırla
+        currentView = 'home';
+        updateViewLayout();
     }
-    
-    // Ekrandaki kalplerin güncel duruma göre çizilmesi için filtrelemeyi tetikle
-    filterRecipes();
 }
 
 // Modal Açma/Kapama İşlemleri
@@ -605,10 +639,13 @@ btnSubmitLogin.addEventListener('click', () => {
 });
 
 // Çıkış Yap (Logout) İşlemi
+// btnLogout içi:
 btnLogout.addEventListener('click', () => {
     sessionStorage.removeItem('hiddenFlavorsCurrentUser');
+    currentView = 'home'; // Çıkış yapınca ana sayfaya at
     checkLoginStatus();
 });
+
 
 // Initialize
 checkLoginStatus();
