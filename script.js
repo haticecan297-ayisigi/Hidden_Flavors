@@ -5,6 +5,7 @@ const searchInput = document.getElementById('search-input'); // Değişken tanı
 const eraFilter = document.getElementById('era-filter');   // Filtre elementi seçildi
 const mainHeader = document.querySelector('header'); // Arama çubuğunun olduğu üst kısmı seçiyoruz
 const btnShowFavs = document.getElementById('btn-show-favs'); // YENİ: Favori Butonu
+const categoryFilter = document.getElementById('category-filter');    //Kategori filtresini seçelim
 
 // Detay sayfası için yeni bir alan oluşturup <main> etiketinin içine ekliyoruz
 let detailContainer = document.getElementById('recipe-detail-view');
@@ -18,6 +19,7 @@ if (!detailContainer) {
 // YENİ: Global filtreleme durumları ve Local Storage'dan favorileri çekme
 let currentSearchTerm = '';
 let currentEra = 'all';
+let currentCategory = 'all';   //Kategori filtresinin varsayılan durumu
 let showOnlyFavs = false; 
 let favsFromStorage = localStorage.getItem('hiddenFlavorsFavs');
 // Eğer veri varsa virgüllerden bölüp sayıya çeviriyoruz, yoksa boş dizi açıyoruz
@@ -94,19 +96,31 @@ window.toggleFavorite = function(id, event) {
     filterRecipes(); 
 };
 
-// Ortak filtreleme fonksiyonu (Hem arama hem dönem filtresi birlikte çalışır)
+// Ortak filtreleme fonksiyonu
 function filterRecipes() {
     const filtered = recipes.filter(recipe => {
+        // 1. Arama Çubuğu Eşleşmesi
         const matchesSearch = (
             recipe.name.toLowerCase().includes(currentSearchTerm) || 
             recipe.era.toLowerCase().includes(currentSearchTerm) ||
             recipe.ingredients.some(ing => ing.name.toLowerCase().includes(currentSearchTerm))
         );
         
+        // 2. Dönem Eşleşmesi
         const matchesEra = currentEra === 'all' || recipe.era === currentEra;
-        const matchesFav = !showOnlyFavs || favorites.includes(recipe.id); // YENİ: Favori Filtresi
         
-        return matchesSearch && matchesEra && matchesFav;
+        // 3. Favori Eşleşmesi
+        const matchesFav = !showOnlyFavs || favorites.includes(recipe.id); 
+
+        // 4. YENİ: Kategori Eşleşmesi
+        // currentCategory "all" ise direkt true döner. 
+        // Değilse, virgülle böleriz (ör: "olive,vegetable" -> ["olive", "vegetable"]).
+        // "some" fonksiyonu ile bu kelimelerden herhangi biri recipe.category içinde geçiyor mu diye bakarız.
+        const matchesCategory = currentCategory === 'all' || 
+            currentCategory.split(',').some(cat => recipe.category.toLowerCase().includes(cat));
+        
+        // Tüm şartları sağlayanlar (true dönenler) listede kalır
+        return matchesSearch && matchesEra && matchesFav && matchesCategory;
     });
     displayRecipes(filtered);
 }
@@ -121,18 +135,39 @@ searchInput.addEventListener('input', (e) => {
 eraFilter.addEventListener('change', (e) => {
     currentEra = e.target.value;
     filterRecipes();
+    // Kategori Filtresi Event Listener
+    if(categoryFilter) {
+        categoryFilter.addEventListener('change', (e) => {
+            currentCategory = e.target.value;
+            filterRecipes(); // Değişim olunca filtrelemeyi tetikle
+        });
+    }
 });
 
-// YENİ: Favorileri Göster Butonu
+// Favorileri Göster Butonu Güncellemesi
 if(btnShowFavs) {
     btnShowFavs.addEventListener('click', () => {
         showOnlyFavs = !showOnlyFavs;
+        
+        // DOM elemanlarını seçiyoruz
+        const heroSection = document.querySelector('.hero-section');
+        const siteFooter = document.querySelector('.site-footer');
+        
         if (showOnlyFavs) {
             btnShowFavs.classList.add('active');
             btnShowFavs.innerHTML = '♥ Show All';
+            
+            // Favoriler aktifken Hero ve Footer'ı gizle
+            if (heroSection) heroSection.style.display = 'none';
+            if (siteFooter) siteFooter.style.display = 'none';
         } else {
             btnShowFavs.classList.remove('active');
             btnShowFavs.innerHTML = '♡ My Favorites';
+            
+            // Ana sayfaya dönüldüğünde Hero ve Footer'ı tekrar göster
+            // (CSS'te .hero-section flex olarak tanımlandığı için 'flex' yapıyoruz)
+            if (heroSection) heroSection.style.display = 'flex';
+            if (siteFooter) siteFooter.style.display = 'block';
         }
         filterRecipes();
     });
@@ -485,6 +520,12 @@ function checkLoginStatus() {
         }
         // Kullanıcı yoksa favori listesini sıfırla
         favorites = [];
+
+        // Çıkış yapıldığında ana sayfa düzenini eski haline getir
+        const heroSection = document.querySelector('.hero-section');
+        const siteFooter = document.querySelector('.site-footer');
+        if (heroSection) heroSection.style.display = 'flex';
+        if (siteFooter) siteFooter.style.display = 'block';
     }
     
     // Ekrandaki kalplerin güncel duruma göre çizilmesi için filtrelemeyi tetikle
