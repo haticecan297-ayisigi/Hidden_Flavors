@@ -779,7 +779,7 @@ const recipes = [
     name: "Tutmach Soup (Tutmaç Çorbası)",
     era: "Anatolian Seljuk Era",
     category: "Soups",
-    image: "https://via.placeholder.com/400x250?text=Tutmach+Soup",
+    image: "./images/seljuk/tutmac.webp",
     basePortion: 6,
     ingredients: [
       { name: "Green Lentils", amount: 0.5, unit: "Cup" },
@@ -809,7 +809,7 @@ const recipes = [
     name: "Herise / Keshkek (Keşkek)",
     era: "Anatolian Seljuk Era",
     category: "Main Courses",
-    image: "https://via.placeholder.com/400x250?text=Keshkek",
+    image: "./images/seljuk/keshkek.webp",
     basePortion: 8,
     ingredients: [
       { name: "Whole Hulled Wheat (Aşurelik Buğday)", amount: 2, unit: "Cups" },
@@ -837,7 +837,7 @@ const recipes = [
     name: "Spinach Borani (Ispanak Boranisi)",
     era: "Anatolian Seljuk Era",
     category: "Olive Oil Dishes & Vegetables",
-    image: "https://via.placeholder.com/400x250?text=Spinach+Borani",
+    image: "./images/seljuk/ispanak-borani.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Fresh Spinach", amount: 500, unit: "Grams" },
@@ -865,7 +865,7 @@ const recipes = [
     name: "Historic Etli Ekmek (Seljuk Meat Flatbread)",
     era: "Anatolian Seljuk Era",
     category: "Pastries & Breads",
-    image: "https://via.placeholder.com/400x250?text=Etli+Ekmek",
+    image: "./images/seljuk/etli-ekmek.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Bread Dough", amount: 500, unit: "Grams" },
@@ -893,7 +893,7 @@ const recipes = [
     name: "Hasude (Pekmez Halva)",
     era: "Anatolian Seljuk Era",
     category: "Desserts",
-    image: "https://via.placeholder.com/400x250?text=Hasude",
+    image: "./images/seljuk/hasude.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Grape Molasses (Pekmez)", amount: 1, unit: "Cup" },
@@ -920,7 +920,7 @@ const recipes = [
     name: "Spiced Curd Cheese (Baharatlı Çökelek / Sürk)",
     era: "Anatolian Seljuk Era",
     category: "Mezes & Snacks",
-    image: "https://via.placeholder.com/400x250?text=Spiced+Curd",
+    image: "./images/seljuk/surk.webp",
     basePortion: 4,
     ingredients: [
       { name: "Curd Cheese (Çökelek or Lor)", amount: 250, unit: "Grams" },
@@ -948,7 +948,7 @@ const recipes = [
     name: "Sirkencubin (Oxymel Sherbet)",
     era: "Anatolian Seljuk Era",
     category: "Beverages & Sherbets",
-    image: "https://via.placeholder.com/400x250?text=Sirkencubin",
+    image: "./images/seljuk/sirkencubin-serbeti.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Honey", amount: 3, unit: "Tablespoons" },
@@ -974,7 +974,7 @@ const recipes = [
     name: "Andalusian Gazpacho",
     era: "Traditional Spanish",
     category: "Soups",
-    image: "https://via.placeholder.com/400x250?text=Gazpacho",
+    image: "./images/spanish/Andalusian-Gazpacho.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Ripe Roma Tomatoes", amount: 1, unit: "Kilogram" },
@@ -1035,7 +1035,7 @@ const recipes = [
     name: "Pisto Manchego",
     era: "Traditional Spanish",
     category: "Olive Oil Dishes & Vegetables",
-    image: "https://via.placeholder.com/400x250?text=Pisto",
+    image: "./images/spanish/pisto-manchego.webp",
     basePortion: 4,
     ingredients: [
       { name: "Zucchini", amount: 1, unit: "Large Piece" },
@@ -1065,7 +1065,7 @@ const recipes = [
     name: "Empanada Gallega (Galician Pie)",
     era: "Traditional Spanish",
     category: "Pastries & Breads",
-    image: "https://via.placeholder.com/400x250?text=Empanada+Gallega",
+    image: "./images/spanish/empanada-gallega.jpg",
     basePortion: 8,
     ingredients: [
       { name: "Bread Flour", amount: 4, unit: "Cups" },
@@ -1095,7 +1095,7 @@ const recipes = [
     name: "Churros con Chocolate",
     era: "Traditional Spanish",
     category: "Desserts",
-    image: "https://via.placeholder.com/400x250?text=Churros",
+    image: "./images/spanish/churros-con-chocolate.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Water", amount: 1, unit: "Cup" },
@@ -1125,7 +1125,7 @@ const recipes = [
     name: "Patatas Bravas",
     era: "Modern Spanish",
     category: "Mezes & Snacks",
-    image: "https://via.placeholder.com/400x250?text=Patatas+Bravas",
+    image: "./images/spanish/patatas-bravas.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Potatoes", amount: 4, unit: "Large Pieces" },
@@ -1154,7 +1154,7 @@ const recipes = [
     name: "Traditional Sangria",
     era: "Traditional Spanish",
     category: "Beverages & Sherbets",
-    image: "https://via.placeholder.com/400x250?text=Sangria",
+    image: "./images/spanish/sangria.webp",
     basePortion: 6,
     ingredients: [
       { name: "Dry Spanish Red Wine (like Rioja or Garnacha)", amount: 1, unit: "Bottle (750ml)" },
@@ -1183,7 +1183,7 @@ const recipes = [
     name: "Kimchi Jjigae (Kimchi Stew)",
     era: "Traditional Korean",
     category: "Soups",
-    image: "https://via.placeholder.com/400x250?text=Kimchi+Jjigae",
+    image: "./images/korean/kimchi-jjigae.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Aged/Sour Kimchi", amount: 2, unit: "Cups" },
@@ -1213,7 +1213,7 @@ const recipes = [
     name: "Bulgogi (Marinated BBQ Beef)",
     era: "Traditional Korean",
     category: "Main Courses",
-    image: "https://via.placeholder.com/400x250?text=Bulgogi",
+    image: "./images/korean/bulgogi.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Ribeye or Sirloin Beef (Thinly Sliced)", amount: 500, unit: "Grams" },
@@ -1243,7 +1243,7 @@ const recipes = [
     name: "Sigeumchi Namul (Seasoned Spinach)",
     era: "Traditional Korean",
     category: "Vegetables & Side Dishes (Banchan)",
-    image: "https://via.placeholder.com/400x250?text=Sigeumchi+Namul",
+    image: "./images/korean/sigeumchi-namul.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Fresh Spinach", amount: 1, unit: "Bunch" },
@@ -1271,7 +1271,7 @@ const recipes = [
     name: "Haemul Pajeon (Seafood Scallion Pancake)",
     era: "Traditional Korean",
     category: "Pastries & Pancakes",
-    image: "https://via.placeholder.com/400x250?text=Haemul+Pajeon",
+    image: "./images/korean/Haemul-Pajeon.jpg",
     basePortion: 4,
     ingredients: [
       { name: "Scallions (Green Onions)", amount: 1, unit: "Large Bunch" },
@@ -1300,7 +1300,7 @@ const recipes = [
     name: "Yakgwa (Honey Pastry)",
     era: "Traditional Korean",
     category: "Desserts",
-    image: "https://via.placeholder.com/400x250?text=Yakgwa",
+    image: "./images/korean/yakgwa.jpg",
     basePortion: 6,
     ingredients: [
       { name: "Wheat Flour", amount: 2, unit: "Cups" },
@@ -1329,7 +1329,7 @@ const recipes = [
     name: "Tteokbokki (Spicy Rice Cakes)",
     era: "Modern Korean",
     category: "Mezes & Snacks",
-    image: "https://via.placeholder.com/400x250?text=Tteokbokki",
+    image: "./images/korean/tteokbokki.webp",
     basePortion: 4,
     ingredients: [
       { name: "Garaetteok (Cylinder Rice Cakes)", amount: 400, unit: "Grams" },
@@ -1357,7 +1357,7 @@ const recipes = [
     name: "Sikhye (Sweet Rice Punch)",
     era: "Traditional Korean",
     category: "Beverages & Sherbets",
-    image: "https://via.placeholder.com/400x250?text=Sikhye",
+    image: "./images/korean/Sikhye.jpg",
     basePortion: 6,
     ingredients: [
       { name: "Malted Barley Powder (Yeotgireum)", amount: 1, unit: "Cup" },
