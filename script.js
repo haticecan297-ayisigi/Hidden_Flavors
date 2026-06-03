@@ -77,7 +77,7 @@ function displayRecipes(recipeList) {
                     ${heartHtml}
                 </button>
 
-                <img src="${recipe.image}" alt="${recipe.name}" class="recipe-img">
+                <img src="${recipe.image}" alt="${recipe.name}" class="recipe-img" loading="lazy">
                 <div class="recipe-content">
                     <span class="era-badge">${recipe.era}</span>
                     <h3 class="recipe-title">${recipe.name}</h3>
@@ -223,14 +223,15 @@ searchInput.addEventListener('input', (e) => {
 eraFilter.addEventListener('change', (e) => {
     currentEra = e.target.value;
     filterRecipes();
-    // Kategori Filtresi Event Listener
+});
+
+// Kategori Filtresi Event Listener
     if(categoryFilter) {
         categoryFilter.addEventListener('change', (e) => {
             currentCategory = e.target.value;
             filterRecipes(); // Değişim olunca filtrelemeyi tetikle
         });
     }
-});
 
 // Favorileri Göster Butonu Güncellemesi
 if(btnShowFavs) {
