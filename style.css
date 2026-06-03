@@ -890,3 +890,20 @@ header select:focus {
     background-position: center;
     transition: background-image 1s ease-in-out; /* Yumuşak resim geçiş efekti */
 }
+
+/* --- MARKA LOGOSU STİLLERİ --- */
+
+/* 1. Flexbox ile logo ve yazıyı yan yana hizalıyoruz */
+header h1, .footer-brand h3 {
+    display: flex;
+    align-items: center; /* Logonun ve yazının dikeyde tam ortalanmasını sağlar */
+    gap: 15px; /* Logo ile metin arasına estetik bir boşluk bırakır */
+}
+
+/* 2. Logonun boyutunu yazıya göre dinamik yapıyoruz */
+.brand-logo {
+    height: 1.5em; /* İŞİN SIRRI BURADA! 'em' birimi, yazının font-size'ına göre boyutlanır. */
+    width: auto;   /* Logonun en-boy oranının bozulmasını engeller */
+    object-fit: contain; /* Görselin alana düzgün sığmasını sağlar */
+    border-radius: 50%; /* Logon çember tasarımlı olduğu için arka planı daha estetik keser (opsiyonel) */
+}

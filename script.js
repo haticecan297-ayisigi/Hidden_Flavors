@@ -161,6 +161,15 @@ function filterRecipes() {
 function updateViewLayout() {
     const heroSection = document.querySelector('.hero-section');
     const siteFooter = document.querySelector('.site-footer');
+
+    //Her sayfa geçişinde (örneğin logoya tıklandığında) detay görünümünü kapat ve temizle
+    if (detailContainer) {
+        detailContainer.style.display = 'none';
+        detailContainer.innerHTML = '';
+    }
+    
+    //Üst menünün (header) her zaman görünür kaldığından emin olalım
+    if (mainHeader) mainHeader.style.display = 'flex';
     
     if (currentView === 'home') {
         if (heroSection) heroSection.style.display = 'flex';
@@ -249,7 +258,6 @@ window.viewDetails = function(id) {
 
     // Ana listeyi ve üst menüyü gizle
     recipeContainer.style.display = 'none';
-    mainHeader.style.display = 'none';
 
     // Yapılış adımlarını HTML'e çevir (Bu sabit kalıyor)
     const instructionsHtml = recipe.instructions.map((step, index) => 
@@ -273,8 +281,6 @@ window.viewDetails = function(id) {
     // Detay sayfası HTML'ini oluştur (Porsiyon seçici alan eklendi)
     detailContainer.innerHTML = `
         <div class="detail-page">
-            <button class="back-btn" onclick="goBack()">&#8592; Back to main page</button>
-            
             <div class="detail-header">
                 <div class="detail-title-box">
                     <span class="era-badge">${recipe.era}</span>
@@ -362,7 +368,7 @@ window.viewDetails = function(id) {
     window.scrollTo(0, 0);
 };
 
-//GERİ DÖNME FONKSİYONU
+/*GERİ DÖNME FONKSİYONU
 window.goBack = function() {
     // Detay sayfasını gizle ve temizle
     detailContainer.style.display = 'none';
@@ -373,7 +379,7 @@ window.goBack = function() {
 
     // Kullanıcı detay sayfasına girmeden önce hangi sayfadaysa düzeni oraya geri yükle
     updateViewLayout(); 
-};
+};*/
 
 // --- HERO SLIDER ARCHITECTURE ---
 
