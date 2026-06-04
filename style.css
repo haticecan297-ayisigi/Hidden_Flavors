@@ -986,3 +986,100 @@ header h1, .footer-brand h3 {
     text-align: center;
     border: 1px dashed var(--accent-gold);
 }
+
+/* --- PROFILE DROPDOWN SYSTEM --- */
+.profile-menu-container {
+    position: relative; /* İçindeki dropdown'ı absolute konumlandırmak için referans noktası */
+    display: inline-block;
+}
+
+.profile-trigger {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 30px;
+    transition: background-color 0.2s ease;
+    user-select: none;
+}
+
+.profile-trigger:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* Üzerine gelince hafif gölge efekti */
+}
+
+/* Yuvarlak Profil Avatarı */
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    font-family: sans-serif;
+    border: 2px solid var(--accent-gold);
+}
+
+.dropdown-arrow {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    transition: transform 0.2s;
+}
+
+/* Sağa Yaslı Açılır Menü Alanı */
+.profile-dropdown {
+    display: none; /* Başlangıçta gizli */
+    position: absolute;
+    right: 0; /* Sayfanın sağ kenarına hizalar */
+    top: calc(100% + 8px); /* Tetikleyicinin hemen altına yerleştirir */
+    background-color: var(--bg-card);
+    border: 1px solid #EAEAEA;
+    border-top: 3px solid var(--accent-gold); /* Üst kısma altın sarısı şık bir şerit */
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    min-width: 170px;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+/* JS ile tetiklenen görünürlük sınıfı */
+.profile-dropdown.show {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 0.95rem;
+    font-family: inherit;
+    border: none;
+    background: none;
+    color: var(--text-dark);
+    transition: background-color 0.2s, color 0.2s;
+    text-decoration: none;
+}
+
+/* Sadece yazı olarak kalacak disabled alan */
+.disabled-item {
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 1px solid #EEEEEE;
+    background: none !important; /* Arka planı tamamen temizle */
+    position: relative;
+}
+
+/* Aktif butonların hover aksiyonları */
+.dropdown-item:not(.disabled-item) {
+    cursor: pointer;
+}
+
+.dropdown-item:not(.disabled-item):hover {
+    background-color: #F5F5F5;
+    color: var(--primary-color);
+}

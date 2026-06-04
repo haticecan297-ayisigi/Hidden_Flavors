@@ -7,6 +7,9 @@ const mainHeader = document.querySelector('header'); // Arama çubuğunun olduğ
 const btnShowFavs = document.getElementById('btn-show-favs'); // YENİ: Favori Butonu
 const categoryFilter = document.getElementById('category-filter');    //Kategori filtresini seçelim
 const homeContent = document.getElementById('home-content');
+const profileTrigger = document.getElementById('profile-trigger');
+const profileDropdown = document.getElementById('profile-dropdown');
+const userAvatar = document.getElementById('user-avatar');
 
 // Detay sayfası için yeni bir alan oluşturup <main> etiketinin içine ekliyoruz
 let detailContainer = document.getElementById('recipe-detail-view');
@@ -640,11 +643,15 @@ function checkLoginStatus() {
         
         // E-posta adresinin '@' işaretinden önceki kısmını alarak karşılama mesajı oluşturur
         const displayName = loggedInUser.split('@')[0];
-        userNameDisplay.textContent = `Welcome, ${displayName}!`;
+        userNameDisplay.textContent =displayName;
+
+        //Kullanıcının baş harfini dinamik olarak alıp Avatara yazıyoruz
+        if (userAvatar) {
+            userAvatar.textContent = displayName.charAt(0).toUpperCase();
+        }
         
         if(btnShowFavs) btnShowFavs.style.display = 'block';
 
-        // YENİ: Giriş yapan kullanıcıya özel anahtarla favorileri yükle
         const userFavsKey = 'hiddenFlavorsFavs_' + loggedInUser;
         const favsFromStorage = localStorage.getItem(userFavsKey);
         favorites = favsFromStorage ? favsFromStorage.split(',').map(Number) : [];
@@ -654,6 +661,9 @@ function checkLoginStatus() {
         // Kullanıcı giriş yapmamışsa veya çıkış (logout) yapmışsa
         btnLoginTrigger.style.display = 'block';
         userProfileDiv.style.display = 'none';
+
+        //Çıkış yapıldığında açık kalan menü varsa kapatalım
+        if (profileDropdown) profileDropdown.classList.remove('show');
         
         // Güvenlik ve senkronizasyon için bellekteki favori listesini sıfırla
         favorites = [];
@@ -867,3 +877,18 @@ window.exploreMenu = function() {
     currentView = 'all';  // Listeleme sayfasına geç
     updateViewLayout();   // Arayüzü güncelle
 };
+
+//Menü Açma/Kapama mantığı
+if (profileTrigger && profileDropdown) {
+    profileTrigger.addEventListener('click', (e) => {
+        e.stopPropagation(); // Tıklama olayının yukarı sıçrayıp menüyü anında kapatmasını engeller
+        profileDropdown.classList.toggle('show');
+    });
+
+    // UX Best Practice: Kullanıcı menü açıkken sayfanın boş bir yerine tıklarsa menüyü kapatırız
+    window.addEventListener('click', () => {
+        if (profileDropdown.classList.contains('show')) {
+            profileDropdown.classList.remove('show');
+        }
+    });
+}

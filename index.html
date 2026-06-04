@@ -47,12 +47,21 @@
         </nav>
 
         <div id="user-section" class="user-section">
-                <button id="btn-login-trigger" class="btn-primary">Log In</button>
-                <div id="user-profile" style="display: none;">
-                    <span id="user-name-display" class="user-greeting"></span>
-                    <button id="btn-logout" class="btn-text">Logout</button>
-                </div>
+    <button id="btn-login-trigger" class="btn-primary">Log In</button>
+    
+    <div id="user-profile" class="profile-menu-container" style="display: none;">
+            <div id="profile-trigger" class="profile-trigger">
+                <div id="user-avatar" class="user-avatar"></div>
+                <span id="user-name-display" class="user-greeting"></span>
+                <span class="dropdown-arrow">▼</span>
+            </div>
+            
+            <div id="profile-dropdown" class="profile-dropdown">
+                <span class="dropdown-item disabled-item">Profile Settings</span>
+                <button id="btn-logout" class="dropdown-item logout-item">Logout</button>
+            </div>
         </div>
+    </div>
 
     </header>
 
