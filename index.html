@@ -14,54 +14,57 @@
             Hidden Flavors
         </h1>
         <nav>
-            <button id="btn-show-favs" class="fav-filter-btn" style="display: none;">♡ My Favorites</button>
-            <!-- JS için ID'ler -->
-            <input type="text" id="search-input" placeholder="Search for recipe...">
-           <select id="era-filter">
-                <option value="all">All Eras</option>
-                <option value="Ancient Antiquity (Hittite)">Hittite Era</option>
-                <option value="Ancient Antiquity (Mesopotamian)">Mesopotamian Era</option>
-                <option value="Ancient Antiquity (Ancient Greek)">Ancient Greek Era</option>
-                <option value="Ancient Roman Era">Ancient Roman Era</option>
-                <option value="Anatolian Seljuk Era">Anatolian Seljuk Era</option>
-                <option value="Ottoman Era">Ottoman Era</option>
-                <option value="Traditional Spanish">Traditional Spanish Era</option>
-                <option value="Modern Spanish">Modern Spanish Era</option>
-                <option value="Traditional Italian">Traditional Italian Era</option>
-                <option value="Modern Italian">Modern Italian Era</option>
-                <option value="Traditional Korean">Traditional Korean Era</option>
-                <option value="Modern Korean">Modern Korean Era</option>
-            </select>
+            <div id="filter-controls" style="display: none; gap: 15px; align-items: center;">   
+                <!-- JS için ID'ler -->
+                <input type="text" id="search-input" placeholder="Search for recipe...">
+                <select id="era-filter">
+                    <option value="all">All Eras</option>
+                    <option value="Ancient Antiquity (Hittite)">Hittite Era</option>
+                    <option value="Ancient Antiquity (Mesopotamian)">Mesopotamian Era</option>
+                    <option value="Ancient Antiquity (Ancient Greek)">Ancient Greek Era</option>
+                    <option value="Ancient Roman Era">Ancient Roman Era</option>
+                    <option value="Anatolian Seljuk Era">Anatolian Seljuk Era</option>
+                    <option value="Ottoman Era">Ottoman Era</option>
+                    <option value="Traditional Spanish">Traditional Spanish Era</option>
+                    <option value="Modern Spanish">Modern Spanish Era</option>
+                    <option value="Traditional Italian">Traditional Italian Era</option>
+                    <option value="Modern Italian">Modern Italian Era</option>
+                    <option value="Traditional Korean">Traditional Korean Era</option>
+                    <option value="Modern Korean">Modern Korean Era</option>
+                </select>
 
-            <!-- YENİ: Kategori (Tür) Filtresi (İngilizce Versiyon) -->
-            <select id="category-filter">
-                <option value="all">All Categories</option>
-                <option value="soup">Soups</option>
-                <option value="main course">Main Courses</option>
-                <option value="olive,vegetable">Olive Oil & Vegetable Dishes</option>
-                <option value="dessert">Desserts</option>
-                <option value="meze">Mezes & Snacks</option>
-                <option value="beverage">Beverages</option>
-                <option value="pastr">Pastries & Breads</option>
-            </select>
+                <!-- YENİ: Kategori (Tür) Filtresi (İngilizce Versiyon) -->
+                <select id="category-filter">
+                    <option value="all">All Categories</option>
+                    <option value="soup">Soups</option>
+                    <option value="main course">Main Courses</option>
+                    <option value="olive,vegetable">Olive Oil & Vegetable Dishes</option>
+                    <option value="dessert">Desserts</option>
+                    <option value="meze">Mezes & Snacks</option>
+                    <option value="beverage">Beverages</option>
+                    <option value="pastr">Pastries & Breads</option>
+                </select>
+            </div>
         </nav>
 
         <div id="user-section" class="user-section">
-    <button id="btn-login-trigger" class="btn-primary">Log In</button>
-    
-    <div id="user-profile" class="profile-menu-container" style="display: none;">
-            <div id="profile-trigger" class="profile-trigger">
-                <div id="user-avatar" class="user-avatar"></div>
-                <span id="user-name-display" class="user-greeting"></span>
-                <span class="dropdown-arrow">▼</span>
-            </div>
+            <button id="btn-show-favs" class="fav-filter-btn" style="display: none;">♡ My Favorites</button>
             
-            <div id="profile-dropdown" class="profile-dropdown">
-                <span class="dropdown-item disabled-item">Profile Settings</span>
-                <button id="btn-logout" class="dropdown-item logout-item">Logout</button>
+            <button id="btn-login-trigger" class="btn-primary">Log In</button>
+            
+            <div id="user-profile" class="profile-menu-container" style="display: none;">
+                    <div id="profile-trigger" class="profile-trigger">
+                        <div id="user-avatar" class="user-avatar"></div>
+                        <span id="user-name-display" class="user-greeting"></span>
+                        <span class="dropdown-arrow">▼</span>
+                    </div>
+                    
+                    <div id="profile-dropdown" class="profile-dropdown">
+                        <span class="dropdown-item disabled-item">Profile Settings</span>
+                        <button id="btn-logout" class="dropdown-item logout-item">Logout</button>
+                    </div>
             </div>
         </div>
-    </div>
 
     </header>
 

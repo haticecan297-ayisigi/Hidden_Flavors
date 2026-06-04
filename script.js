@@ -10,6 +10,7 @@ const homeContent = document.getElementById('home-content');
 const profileTrigger = document.getElementById('profile-trigger');
 const profileDropdown = document.getElementById('profile-dropdown');
 const userAvatar = document.getElementById('user-avatar');
+const filterControls = document.getElementById('filter-controls');
 
 // Detay sayfası için yeni bir alan oluşturup <main> etiketinin içine ekliyoruz
 let detailContainer = document.getElementById('recipe-detail-view');
@@ -187,6 +188,8 @@ function updateViewLayout() {
             btnShowFavs.classList.remove('active');
             btnShowFavs.innerHTML = '♡ My Favorites';
         }
+        //Ana sayfadayken filtre kutularını gizle
+        if (filterControls) filterControls.style.display = 'none';
     } 
     else if (currentView === 'all') {
         if (heroSection) heroSection.style.display = 'none';
@@ -201,6 +204,10 @@ function updateViewLayout() {
             btnShowFavs.classList.remove('active');
             btnShowFavs.innerHTML = '♡ My Favorites';
         }
+
+        //Tüm tarifler kısmındayken filtre kutularını göster
+        if (filterControls) filterControls.style.display = 'flex';
+
         filterRecipes(); // Şartlara göre tarifleri listele
     } 
     else if (currentView === 'favorites') {
@@ -212,6 +219,10 @@ function updateViewLayout() {
             btnShowFavs.classList.add('active');
             btnShowFavs.innerHTML = '♥ Show All';
         }
+
+        //Favoriler kısmındayken de filtre kutularını göster
+        if (filterControls) filterControls.style.display = 'flex';
+        
         filterRecipes();
     }
 }

@@ -372,7 +372,9 @@ header select:focus {
     display: flex;
     align-items: center;
     margin-left: 20px; /* Header öğeleriyle arasındaki mesafe */
+    gap: 15px; /*Favori butonu ile profil arasına estetik bir boşluk ekler */
 }
+
 
 .btn-primary {
     background-color: var(--primary-color);
