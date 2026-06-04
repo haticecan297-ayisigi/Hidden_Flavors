@@ -173,10 +173,27 @@ header select:focus {
 /*Kartın alt kısmı ve favori butonu*/
 .card-footer {
     display: flex;
-    justify-content: flex-end; /*Buton sağda*/
+    justify-content: space-between; /*Puanı sola, butonu sağa yaslar*/
+    align-items: center; /* Yıldız ve butonu dikeyde tam ortalar */
     border-top: 1px solid #EEEEEE;
     padding-top: 15px;
     margin-top: auto;
+}
+
+/*Puan ve Yıldız Stilleri */
+.card-rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+}
+
+.card-rating .star-icon {
+    color: var(--accent-gold); /* Yıldızı altın rengi yaptık */
+    font-size: 1.3rem;
+    margin-bottom: 2px; /* Yıldızı metinle optik olarak hizalamak için ufak bir dokunuş */
 }
 
 .btn-view {

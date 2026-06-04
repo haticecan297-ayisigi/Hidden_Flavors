@@ -27,6 +27,7 @@ const recipes = [
       "Gradually whisk in the chicken broth to prevent lumps and bring to a boil.",
       "Add warm milk, salt, and grated nutmeg to the boiling soup. Simmer on low heat for 5 minutes and serve."
     ],
+    averageRating: 4.8,
     comments: [
       { user: "tarih_gurmesi", rating: 5, text: "The lightest starter from palace cuisine. You absolutely must try it!" },
       { user: "lezzet_pesinde", rating: 4, text: "It tastes great, but it requires a little patience to make." }
@@ -61,6 +62,7 @@ const recipes = [
       "In a separate pan, lightly sauté the almonds and quartered figs and apricots in a little oil.",
       "Once the meat is cooked, add the fruit mixture, honey, salt, and sumac to the pot. Simmer for 10 more minutes to blend the flavors and remove from heat."
     ],
+    averageRating: 4.9,
     comments: [
       { user: "fatih_hayrani", rating: 5, text: "The combination of dried fruits and meat is amazing." }
     ]
@@ -91,7 +93,8 @@ const recipes = [
       "Dry the eggplants, slit them lengthwise down the middle, and lightly fry them in the remaining olive oil (or bake them).",
       "Stuff the eggplants with the onion mixture and arrange them in a wide pot.",
       "Add half a cup of water, cover with a lid, and simmer on low heat for 25-30 minutes. Serve cold."
-    ]
+    ],
+    averageRating: 4.9
   },
   {
     id: 4,
@@ -118,7 +121,8 @@ const recipes = [
       "Roll out the dough to manti thickness and cut it into squares (slightly larger than standard manti).",
       "Place a small amount of the cheese filling into each square and fold them into triangles.",
       "Boil the Piruhi in salted water and drain. Transfer to a serving dish and pour sizzling melted butter over them."
-    ]
+    ],
+    averageRating: 4.7,
   },
   {
     id: 5,
@@ -146,7 +150,8 @@ const recipes = [
       "Add the sugar and stir. Dissolve the starch in a little water and slowly add it to the boiling pot.",
       "Pour the saffron and rose water mixture into the pot.",
       "Boil for a few more minutes until it thickens. Divide into bowls, let cool, and garnish with currants and pine nuts."
-    ]
+    ],
+    averageRating: 4.6
   },
   {
     id: 6,
@@ -175,7 +180,8 @@ const recipes = [
       "Place the filling onto the vine leaves, add 1-2 pitted cherries inside each, and roll them up tightly like pencils.",
       "Arrange the stuffed leaves in a pot and scatter the remaining cherries between them.",
       "Drizzle cherry juice, a little water, and olive oil over the top, cover with a porcelain plate, and simmer on low heat."
-    ]
+    ],
+    averageRating: 5
   },
   {
     id: 7,
@@ -202,7 +208,8 @@ const recipes = [
       "Towards the end of the boiling time, add sugar or honey and stir until dissolved.",
       "Remove from heat and let it cool.",
       "Once completely cooled, strain the sherbet through a fine cheesecloth into bottles and serve chilled from the refrigerator."
-    ]
+    ],
+    averageRating: 4.5
   },
 
   // --- ANCIENT ROMAN ERA RECIPES ---
@@ -230,7 +237,8 @@ const recipes = [
       "Cook on low heat until the grains are very soft and mushy (about 40-45 minutes).",
       "Add olive oil, salt, and black pepper, and stir.",
       "Once it reaches the consistency of a thick soup, remove from heat and serve hot."
-    ]
+    ],
+    averageRating: 4.4
   },
   {
     id: 9,
@@ -257,7 +265,8 @@ const recipes = [
       "Add garum (ancient Roman fish sauce - soy sauce as an alternative), wine, and plenty of black pepper.",
       "Knead the mixture thoroughly and shape it into flat, round patties.",
       "Heat olive oil in a pan, fry both sides of the patties until nicely browned, and serve."
-    ]
+    ],
+    averageRating: 4.3
   },
   {
     id: 10,
@@ -284,7 +293,8 @@ const recipes = [
       "Beat the eggs in a separate bowl, add them to the asparagus puree along with plenty of black pepper, and mix.",
       "Pour the mixture into a baking dish (patina) greased with olive oil.",
       "Bake in a preheated oven (approx. 180°C / 350°F) until the top is golden and the eggs are set. Slice and serve."
-    ]
+    ],
+    averageRating: 4.2
   },
   {
     id: 11,
@@ -309,7 +319,8 @@ const recipes = [
       "Shape the fermented dough into a round loaf and tie a string around its equator to create a slight indentation.",
       "Using a knife or dough scraper, make deep cuts radiating from the center outwards to create 8 equal slices (like pizza slices).",
       "Bake in an oven at 200°C (400°F) for about 40-45 minutes until a crust forms and the inside is cooked."
-    ]
+    ],
+    averageRating: 4.1
   },
   {
     id: 12,
@@ -335,7 +346,8 @@ const recipes = [
       "Heat the olive oil in a pan and fry the dough balls until they are golden yellow.",
       "In a separate bowl, gently heat the honey to make it fluid.",
       "Coat the hot, fried balls in honey, sprinkle with poppy seeds, and serve."
-    ]
+    ],
+    averageRating: 4.0
   },
   {
     id: 13,
@@ -362,7 +374,8 @@ const recipes = [
       "Add the chopped fresh mint, coriander seeds, cumin, vinegar, and olive oil to the olive mixture.",
       "Blend all ingredients well.",
       "Transfer the mixture into a jar or bowl, pour a thin layer of olive oil on top to preserve it, and serve with Panis Quadratus."
-    ]
+    ],
+    averageRating: 4.9
   },
   {
     id: 14,
@@ -387,7 +400,8 @@ const recipes = [
       "Toss in the black peppercorns and bay leaves.",
       "Remove the mixture from the heat and let it steep until it reaches room temperature so the spices release their aromas.",
       "Strain the beverage, chill it in the refrigerator, and serve."
-    ]
+    ],
+    averageRating: 4.8
   },
   {
     id: 15,
@@ -414,7 +428,8 @@ const recipes = [
       "Add the cumin seeds and toast them lightly for about a minute to release their aroma.",
       "Add the lentils, water (or broth), and salt to the pot.",
       "Bring to a boil, then reduce the heat, cover, and simmer for 30-40 minutes until the lentils break down and the soup thickens."
-    ]
+    ],
+    averageRating: 4.7
   },
   {
     id: 16,
@@ -443,7 +458,8 @@ const recipes = [
       "Peel and dice the beets, then add them to the pot along with the crushed coriander seeds.",
       "Pour in the beer and water, bring to a gentle boil, then cover and simmer on low heat for 1 hour.",
       "Stir in chopped beet leaves and arugula during the last 10 minutes of cooking. Serve warm."
-    ]
+    ],
+    averageRating: 4.6
   },
   {
     id: 17,
@@ -469,7 +485,8 @@ const recipes = [
       "Sprinkle sea salt and coriander seeds over the leeks.",
       "Toss to coat evenly, then cover the dish with parchment paper or a lid.",
       "Bake at 180°C (350°F) for 40 minutes until the leeks are tender and slightly caramelized. Serve at room temperature."
-    ]
+    ],
+    averageRating: 4.5
   },
   {
     id: 18,
@@ -496,7 +513,8 @@ const recipes = [
       "Knead the dough on a floured surface for 10 minutes (barley dough will be denser than pure wheat dough).",
       "Place in an oiled bowl, cover, and let it rise in a warm place for 4-6 hours.",
       "Shape into a round, flat loaf, place on a baking stone or tray, and bake at 200°C (400°F) for 35-40 minutes."
-    ]
+    ],
+    averageRating: 4.4
   },
   {
     id: 19,
@@ -522,7 +540,8 @@ const recipes = [
       "Place the pitted dates in a food processor or mash them vigorously in a mortar until they form a thick paste.",
       "Knead the melted butter and the crushed nuts into the date paste until evenly distributed.",
       "Roll the mixture into bite-sized balls and coat them entirely in the toasted sesame seeds."
-    ]
+    ],
+    averageRating: 4.3
   },
   {
     id: 20,
@@ -549,7 +568,8 @@ const recipes = [
       "Reduce the heat, cover, and simmer for 40-50 minutes until the peas are completely mushy and the water is absorbed.",
       "Whisk or blend the mixture until it becomes a smooth, creamy puree, stirring in the salt and half of the olive oil.",
       "Serve warm or cold, topped with the remaining chopped raw onion, fresh thyme, and a generous drizzle of the rest of the olive oil."
-    ]
+    ],
+    averageRating: 4.2
   },
   {
     id: 21,
@@ -575,7 +595,8 @@ const recipes = [
       "Add the honey and crushed mint leaves to the mixture and stir well until the honey dissolves.",
       "Let the drink sit for 15-20 minutes to allow the flavors to infuse.",
       "(Optional, for the Homeric version): Sprinkle a tiny bit of hard, grated goat cheese on top right before serving."
-    ]
+    ],
+    averageRating: 4.1
   },
   {
     id: 22,
@@ -605,7 +626,8 @@ const recipes = [
       "Bring to a boil, then reduce heat and let it simmer for 30 minutes.",
       "Add the Cannellini beans and pasta, cooking for another 10-12 minutes until the pasta is al dente.",
       "Remove the cheese rind before serving hot, optionally topped with a drizzle of olive oil and grated cheese."
-    ]
+    ],
+    averageRating: 4.0
   },
   {
     id: 23,
@@ -634,7 +656,8 @@ const recipes = [
       "Return the veal to the pot, pour in the white wine, and let it evaporate slightly.",
       "Add the broth to cover half the meat, cover the pot, and simmer on very low heat for 1.5 to 2 hours until the meat is falling off the bone.",
       "Chop parsley, garlic, and lemon zest together to make the gremolata, and sprinkle it over the dish 5 minutes before turning off the heat."
-    ]
+    ],
+    averageRating: 4.9
   },
   {
     id: 24,
@@ -665,7 +688,8 @@ const recipes = [
       "Add the capers, green olives, and tomato puree. Let it simmer for 10 minutes.",
       "Stir in the sugar and white wine vinegar, cooking for a few minutes until the vinegar evaporates and creates a sweet-sour glaze.",
       "Fold the fried eggplant back into the sauce, mix gently, and let it cool. It is best served at room temperature."
-    ]
+    ],
+    averageRating: 4.8
   },
   {
     id: 25,
@@ -694,7 +718,8 @@ const recipes = [
       "Let it rise for another 45 minutes. Then, press your fingers deep into the dough to create the classic focaccia dimples.",
       "Drizzle the remaining olive oil and a splash of water over the top, sprinkle with coarse sea salt and rosemary leaves.",
       "Bake at 220°C (425°F) for 20-25 minutes until golden brown."
-    ]
+    ],
+    averageRating: 4.7
   },
   {
     id: 26,
@@ -724,7 +749,8 @@ const recipes = [
       "Spread half of the mascarpone cream evenly over the ladyfingers.",
       "Repeat with a second layer of dipped ladyfingers and top with the remaining cream.",
       "Refrigerate for at least 4-6 hours (overnight is best). Dust generously with cocoa powder before serving."
-    ]
+    ],
+    averageRating: 4.6
   },
   {
     id: 27,
@@ -752,7 +778,8 @@ const recipes = [
       "Take a peeled, raw garlic clove and rub it lightly over the warm, toasted bread slices. The rough surface of the bread will grate the garlic.",
       "Drizzle a little more olive oil on the bread slices.",
       "Top the bread generously with the tomato mixture, drizzle with balsamic glaze if desired, and serve immediately."
-    ]
+    ],
+    averageRating: 4.4
   },
   {
     id: 28,
@@ -779,7 +806,8 @@ const recipes = [
       "Strain the infused alcohol through a fine mesh sieve or cheesecloth, discarding the peels.",
       "Mix the infused alcohol with the cooled sugar syrup.",
       "Bottle the Limoncello and store it in the freezer. Serve ice cold in small chilled glasses."
-    ]
+    ],
+    averageRating: 4.3
   },
   {
     id: 29,
@@ -809,7 +837,8 @@ const recipes = [
       "Gradually add a ladle of the hot soup water to the yogurt mixture, whisking constantly to prevent curdling.",
       "Slowly pour the tempered yogurt back into the boiling soup while stirring. Simmer for 5 more minutes.",
       "Melt the butter in a small pan, stir in the dried mint until fragrant, and pour the sizzling mint butter over the soup before serving."
-    ]
+    ],
+    averageRating: 4.2
   },
   {
     id: 30,
@@ -837,7 +866,8 @@ const recipes = [
       "Remove the bones carefully from the pot.",
       "Using a large wooden spoon (or a traditional mallet), vigorously beat the wheat and meat mixture against the sides of the pot until it melds into a thick, smooth, and stretchy porridge.",
       "Serve hot on flat plates, topped with a generous pour of sizzling melted butter."
-    ]
+    ],
+    averageRating: 4.1
   },
   {
     id: 31,
@@ -865,7 +895,8 @@ const recipes = [
       "Season with salt and let the spinach mixture cool to room temperature.",
       "Crush the garlic and mix it thoroughly with the yogurt.",
       "Fold the garlic yogurt into the cooled spinach and serve as a refreshing vegetable side."
-    ]
+    ],
+    averageRating: 4.0
   },
   {
     id: 32,
@@ -893,7 +924,8 @@ const recipes = [
       "Roll out each dough ball on a floured surface into a very thin, long oval shape.",
       "Spread a thin, even layer of the meat mixture over the entire surface of the dough, pressing it down lightly.",
       "Bake in a very hot oven (ideally on a pizza stone at 250°C/480°F) for 5-8 minutes until the edges are crispy and the meat is cooked. Slice and serve hot."
-    ]
+    ],
+    averageRating: 4.9
   },
   {
     id: 33,
@@ -920,7 +952,8 @@ const recipes = [
       "Stir continuously and vigorously with a wooden spoon as the mixture thickens and begins to pull away from the sides of the pan.",
       "Once it reaches a glossy, thick, pudding-like consistency, remove from heat.",
       "Serve warm, sprinkled with crushed walnuts."
-    ]
+    ],
+    averageRating: 4.8
   },
   {
     id: 34,
@@ -948,7 +981,8 @@ const recipes = [
       "Shape the cheese into small balls or press it onto a small serving plate.",
       "Drizzle generously with olive oil (or walnut oil for historical accuracy) and sprinkle with crushed walnuts.",
       "Serve as an appetizer with warm flatbread."
-    ]
+    ],
+    averageRating: 4.7
   },
   {
     id: 35,
@@ -974,7 +1008,8 @@ const recipes = [
       "Crush a few fresh mint leaves lightly with your fingers to release their oils and drop them into the pitcher.",
       "Let the sherbet chill in a cool place (or refrigerator) for an hour to allow the mint flavor to infuse.",
       "Serve cold."
-    ]
+    ],
+    averageRating: 4.6
   },
   {
     id: 36,
@@ -1004,7 +1039,8 @@ const recipes = [
       "Blend until completely smooth.",
       "While the blender is running on a low speed, slowly drizzle in the extra virgin olive oil to emulsify the soup, giving it a creamy, orange-pink texture.",
       "Add the sherry vinegar and salt to taste. Chill in the refrigerator for at least 2 hours before serving cold."
-    ]
+    ],
+    averageRating: 4.6
   },
   {
     id: 37,
@@ -1035,7 +1071,8 @@ const recipes = [
       "Pour in the chicken broth and add the saffron threads. Bring to a vigorous boil and let it cook for 10 minutes.",
       "Sprinkle the Bomba rice evenly across the entire pan. Do not stir the rice after this point.",
       "Cook on medium-high for 10 minutes, then lower the heat and cook until the liquid is absorbed and a crispy crust (socarrat) forms at the bottom. Let it rest for 5 minutes before serving."
-    ]
+    ],
+    averageRating: 4.5
   },
   {
     id: 38,
@@ -1065,7 +1102,8 @@ const recipes = [
       "Stir in the diced zucchini and cook until it begins to soften.",
       "Pour in the crushed tomatoes, season with salt and pepper, and simmer on low heat for 30 minutes until the vegetables are tender and the sauce has thickened.",
       "Traditionally served warm with a fried egg on top and crusty bread on the side."
-    ]
+    ],
+    averageRating: 4.4
   },
   {
     id: 39,
@@ -1095,7 +1133,8 @@ const recipes = [
       "Spread the cooled tuna and onion filling evenly over the dough.",
       "Roll out the second half of the dough and cover the pie. Crimp the edges tightly to seal it.",
       "Poke a small hole in the center to let steam escape, brush with egg wash, and bake at 200°C (400°F) for 40 minutes until golden."
-    ]
+    ],
+    averageRating: 4.3
   },
   {
     id: 40,
@@ -1125,7 +1164,8 @@ const recipes = [
       "Fry the churros until golden brown and crispy on all sides. Drain on paper towels and toss them in granulated sugar.",
       "For the chocolate: Heat the milk in a pot. Dissolve the cornstarch in a little cold milk and add it to the pot. Add the chopped dark chocolate and whisk continuously until it thickens into a rich, pudding-like consistency.",
       "Serve the hot, crispy churros alongside a cup of the thick hot chocolate for dipping."
-    ]
+    ],
+    averageRating: 4.3
   },
   {
     id: 41,
@@ -1154,7 +1194,8 @@ const recipes = [
       "For the Brava sauce: Sauté minced garlic in a little olive oil. Off the heat, stir in both the sweet and hot smoked paprika (be careful not to burn it).",
       "Return to heat, add the crushed tomatoes and vinegar, and simmer for 10 minutes until thick. Blend the sauce until smooth.",
       "Drizzle the spicy Brava sauce generously over the crispy potatoes and serve immediately (often accompanied by garlic aioli)."
-    ]
+    ],
+    averageRating: 4.2
   },
   {
     id: 42,
@@ -1183,7 +1224,8 @@ const recipes = [
       "Add the cinnamon stick and stir everything together vigorously.",
       "Place the pitcher in the refrigerator to chill and let the flavors meld for at least 2 to 4 hours (overnight is even better).",
       "Serve cold in wine glasses, making sure to spoon some of the wine-soaked fruit into each glass."
-    ]
+    ],
+    averageRating: 4.1
   },
   {
     id: 43,
@@ -1213,7 +1255,8 @@ const recipes = [
       "Pour in the broth (or water) and bring the stew to a boil. Reduce the heat and let it simmer for 15-20 minutes.",
       "Slice the tofu into thick rectangles and chop the scallions.",
       "Add the tofu and scallions to the pot, let it boil for another 3 minutes, and serve bubbling hot with a bowl of steamed rice."
-    ]
+    ],
+    averageRating: 4.0
   },
   {
     id: 44,
@@ -1243,7 +1286,8 @@ const recipes = [
       "Heat a large skillet, wok, or BBQ grill over high heat.",
       "Cook the marinated beef and onions in batches in a single layer until the meat is browned and caramelized (about 3-4 minutes).",
       "Serve hot, traditionally wrapped in lettuce leaves (Ssam) with rice and a dab of ssamjang (bean paste)."
-    ]
+    ],
+    averageRating: 4.9
   },
   {
     id: 45,
@@ -1271,7 +1315,8 @@ const recipes = [
       "Squeeze the spinach tightly with your hands to remove as much excess water as possible, then cut it once or twice to make it bite-sized.",
       "In a mixing bowl, toss the spinach with soy sauce, minced garlic, sesame oil, and toasted sesame seeds.",
       "Serve at room temperature or chilled as a side dish."
-    ]
+    ],
+    averageRating: 4.8
   },
   {
     id: 46,
@@ -1300,7 +1345,8 @@ const recipes = [
       "Lay the scallions flat in the pan in a single layer. Pour the batter evenly over the scallions.",
       "Scatter the chopped seafood evenly on top of the wet batter. Lightly beat the egg and pour it over the seafood.",
       "Fry until the bottom is deeply golden and crispy (about 4-5 minutes). Carefully flip the pancake and fry the other side for another 3-4 minutes. Serve hot with a soy-vinegar dipping sauce."
-    ]
+    ],
+    averageRating: 4.7
   },
   {
     id: 47,
@@ -1329,7 +1375,8 @@ const recipes = [
       "Heat the vegetable oil in a pot to a low temperature (around 140°C/285°F).",
       "Slow-fry the pastries for 10-15 minutes until they expand, float, and turn a deep golden brown. Drain on paper towels.",
       "While still warm, soak the fried pastries in a syrup made of honey and a little ginger juice for a few hours. Garnish with crushed pine nuts before serving."
-    ]
+    ],
+    averageRating: 4.7
   },
   {
     id: 48,
@@ -1357,7 +1404,8 @@ const recipes = [
       "Add the rice cakes to the boiling sauce. Reduce the heat to medium and cook for 8-10 minutes, stirring frequently so the rice cakes don't stick to the bottom.",
       "When the sauce begins to thicken and the rice cakes are chewy and soft, add the fish cakes and scallions.",
       "Cook for another 3-4 minutes until the sauce is thick, shiny, and coats everything perfectly. Serve hot."
-    ]
+    ],
+    averageRating: 4.6
   },
   {
     id: 49,
@@ -1385,7 +1433,8 @@ const recipes = [
       "Transfer the mixture to a large pot on the stove. Add the sugar and bring it to a rolling boil for 10 minutes.",
       "Skim off any foam from the top. Let it cool completely.",
       "Chill in the refrigerator and serve ice cold, garnished with a few floating pine nuts."
-    ]
+    ],
+    averageRating: 4.5
   }
 ];
 

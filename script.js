@@ -87,6 +87,10 @@ function displayRecipes(recipeList) {
                     <h3 class="recipe-title">${recipe.name}</h3>
                     <p class="recipe-desc">${recipe.history.substring(0, 100)}...</p>
                     <div class="card-footer">
+                        <div class="card-rating">
+                            <span class="star-icon">★</span> 
+                            <span>${recipe.averageRating || "4.5"}</span>
+                        </div>
                         <button class="btn-view" onclick="viewDetails(${recipe.id})">View Details</button>
                     </div>
                 </div>
