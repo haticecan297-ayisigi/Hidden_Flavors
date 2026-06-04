@@ -248,6 +248,9 @@ if(btnShowFavs) {
 //Sayfa ilk açıldığında göster
 displayRecipes(recipes);
 
+// Yıldız durumu için global bir değişken
+let currentRatingSelection = 0;
+
 //Detayları Gör Fonksiyonu
 window.viewDetails = function(id) {
     const heroSection = document.querySelector('.hero-section');
@@ -278,6 +281,47 @@ window.viewDetails = function(id) {
 
     // Check if the recipe is already favorited to set the initial button state
     const isFavInitial = favorites.includes(recipe.id);
+
+    //LocalStorage'dan bu tarife ait yeni yorumları çek ve varsayılan yorumlarla birleştir
+    const localCommentsKey = `hiddenFlavorsComments_${recipe.id}`;
+    const savedComments = JSON.parse(localStorage.getItem(localCommentsKey)) || [];
+    const allComments = [...(recipe.comments || []), ...savedComments];
+
+    // Yorumları HTML'e çevirme
+    const commentsHtml = allComments.length > 0 
+        ? allComments.map(c => `
+            <div class="comment-card">
+                <div class="comment-header">
+                    <strong>${c.user}</strong>
+                    <span class="comment-rating">${'★'.repeat(c.rating)}${'☆'.repeat(5 - c.rating)}</span>
+                </div>
+                <p class="comment-text">${c.text}</p>
+            </div>
+          `).join('')
+        : `<p style="color: var(--text-muted); font-style: italic;">No comments yet. Be the first to share your thoughts!</p>`;
+
+    //Kullanıcı giriş yapmış mı kontrol et [source: 3]
+    const currentUser = sessionStorage.getItem('hiddenFlavorsCurrentUser');
+    
+    // Sadece yıldızları (puanı) veren veya yorumla birlikte veren form alanı
+    const commentFormHtml = currentUser ? `
+        <div class="add-comment-section">
+            <h3>Leave a Rating or Comment</h3>
+            <div class="star-rating-input">
+                <span class="star" onclick="setRating(1)">☆</span>
+                <span class="star" onclick="setRating(2)">☆</span>
+                <span class="star" onclick="setRating(3)">☆</span>
+                <span class="star" onclick="setRating(4)">☆</span>
+                <span class="star" onclick="setRating(5)">☆</span>
+            </div>
+            <textarea id="new-comment-text" placeholder="Share your culinary experience... (Optional)" rows="3"></textarea>
+            <button class="btn-primary" onclick="submitComment(${recipe.id}, '${currentUser}')">Submit</button>
+        </div>
+    ` : `
+        <div class="login-prompt">
+            <p>Please <button class="btn-text" style="color: var(--primary-color); font-weight: bold;" onclick="document.getElementById('btn-login-trigger').click()">Log In</button> to rate and comment.</p>
+        </div>
+    `;
 
     // Detay sayfası HTML'ini oluştur (Porsiyon seçici alan eklendi)
     detailContainer.innerHTML = `
@@ -322,6 +366,14 @@ window.viewDetails = function(id) {
                     ${timelineHtml}
                 </div>
             </div>
+            <!-- YORUM BÖLÜMÜ -->
+            <div class="detail-comments-section" style="margin-top: 50px; padding-top: 30px; border-top: 2px solid #eee;">
+                <h2 style="color: var(--primary-color); margin-bottom: 20px;">Reviews & Ratings</h2>
+                ${commentFormHtml}
+                <div class="comments-list" style="margin-top: 30px;">
+                    ${commentsHtml}
+                </div>
+            </div>
         </div>
     `;
 
@@ -364,23 +416,46 @@ window.viewDetails = function(id) {
         updateIngredients();
     });
 
+    currentRatingSelection = 0; // Her detay açılışında yıldızları sıfırla
     // Detay sayfasını görünür yap ve ekranın en üstüne kaydır
     detailContainer.style.display = 'block';
     window.scrollTo(0, 0);
 };
 
-/*GERİ DÖNME FONKSİYONU
-window.goBack = function() {
-    // Detay sayfasını gizle ve temizle
-    detailContainer.style.display = 'none';
-    detailContainer.innerHTML = ''; 
+// YENİ: Yıldız tıklama işlevi
+window.setRating = function(rating) {
+    currentRatingSelection = rating;
+    const stars = document.querySelectorAll('.star-rating-input .star');
+    stars.forEach((star, index) => {
+        star.textContent = index < rating ? '★' : '☆';
+        star.style.color = index < rating ? 'var(--accent-gold)' : '#ccc';
+    });
+};
 
-    // Üst menüyü tekrar görünür yap
-    mainHeader.style.display = 'flex'; 
+//Yorum ve Puan gönderme işlevi
+window.submitComment = function(recipeId, userEmail) {
+    if (currentRatingSelection === 0) {
+        alert("Please select a star rating before submitting.");
+        return;
+    }
 
-    // Kullanıcı detay sayfasına girmeden önce hangi sayfadaysa düzeni oraya geri yükle
-    updateViewLayout(); 
-};*/
+    const commentText = document.getElementById('new-comment-text').value.trim();
+    const displayName = userEmail.split('@')[0]; // Sadece mailin baş kısmını isim olarak alalım [source: 3]
+
+    const newReview = {
+        user: displayName,
+        rating: currentRatingSelection,
+        text: commentText
+    };
+
+    const localCommentsKey = `hiddenFlavorsComments_${recipeId}`;
+    const savedComments = JSON.parse(localStorage.getItem(localCommentsKey)) || [];
+    savedComments.unshift(newReview); // En üste ekle
+    localStorage.setItem(localCommentsKey, JSON.stringify(savedComments));
+
+    // Ekranı güncellemek için detay sayfasını yeniden render et
+    window.viewDetails(recipeId);
+};
 
 // --- HERO SLIDER ARCHITECTURE ---
 

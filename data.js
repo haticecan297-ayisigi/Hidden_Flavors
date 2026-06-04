@@ -14,7 +14,7 @@ const recipes = [
       { name: "Flour", amount: 2, unit: "Tablespoons" },
       { name: "Milk", amount: 1, unit: "Cup" },
       { name: "Grated Nutmeg", amount: 1, unit: "Teaspoon" },
-      { name: "Salt", amount: 1, unit: "Teaspoon" }
+      { name: "Salt", amount: 1, unit: "Teaspoon" }  
     ],
     history: "An indispensable starter for palace banquets. A beautiful example of sweet-salty harmony, this soup was also served at the circumcision feasts of Suleiman the Magnificent's princes.",
     timeline: [
@@ -26,6 +26,10 @@ const recipes = [
       "Add the almond puree to the pot and roast for 1-2 more minutes.",
       "Gradually whisk in the chicken broth to prevent lumps and bring to a boil.",
       "Add warm milk, salt, and grated nutmeg to the boiling soup. Simmer on low heat for 5 minutes and serve."
+    ],
+    comments: [
+      { user: "tarih_gurmesi", rating: 5, text: "The lightest starter from palace cuisine. You absolutely must try it!" },
+      { user: "lezzet_pesinde", rating: 4, text: "It tastes great, but it requires a little patience to make." }
     ]
   },
   {
@@ -56,6 +60,9 @@ const recipes = [
       "Add enough warm water to cover the meat and simmer on low heat until tender.",
       "In a separate pan, lightly sauté the almonds and quartered figs and apricots in a little oil.",
       "Once the meat is cooked, add the fruit mixture, honey, salt, and sumac to the pot. Simmer for 10 more minutes to blend the flavors and remove from heat."
+    ],
+    comments: [
+      { user: "fatih_hayrani", rating: 5, text: "The combination of dried fruits and meat is amazing." }
     ]
   },
   {
